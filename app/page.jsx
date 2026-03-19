@@ -35,17 +35,9 @@ export default function Page() {
       display: "block",
       maxWidth: "560px",
       width: "100%",
-      margin: "0 auto 20px",
+      margin: "0 auto 10px",
       transform: "rotate(-1deg)",
       filter: "drop-shadow(8px 8px 0 #160608)",
-    },
-    subtitle: {
-      marginTop: "10px",
-      marginBottom: 0,
-      fontSize: "32px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.25em",
     },
     introBox: {
       maxWidth: "760px",
@@ -113,13 +105,13 @@ export default function Page() {
     },
     grid3: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      gridTemplateColumns: "repeat(3, 1fr)",
       gap: "24px",
       marginTop: "40px",
     },
     grid2: {
       display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      gridTemplateColumns: "repeat(2, 1fr)",
       gap: "24px",
       marginTop: "40px",
     },
@@ -164,7 +156,6 @@ export default function Page() {
     },
     body: {
       marginTop: "20px",
-      marginBottom: 0,
       fontSize: "20px",
       lineHeight: 1.8,
     },
@@ -203,7 +194,7 @@ export default function Page() {
     },
     contactGrid: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      gridTemplateColumns: "repeat(3, 1fr)",
       gap: "24px",
       marginTop: "40px",
     },
@@ -221,7 +212,6 @@ export default function Page() {
       boxShadow: "7px 7px 0 #e21b3c",
     },
     label: {
-      margin: 0,
       fontSize: "12px",
       fontWeight: 900,
       textTransform: "uppercase",
@@ -229,10 +219,8 @@ export default function Page() {
     },
     value: {
       marginTop: "14px",
-      marginBottom: 0,
       fontSize: "24px",
       fontWeight: 900,
-      wordBreak: "break-word",
     },
   };
 
@@ -241,8 +229,6 @@ export default function Page() {
       <main style={styles.main}>
         <section style={styles.hero}>
           <img src="/logo.png" alt="Mad Props Logo" style={styles.logo} />
-
-          <p style={styles.subtitle}>Event Co</p>
 
           <div style={styles.introBox}>
             Custom props, playful scenic fabrication, and bold temporary installs
@@ -259,58 +245,53 @@ export default function Page() {
           Vintage circus style • handmade builds • big personality
         </section>
 
-        <section style={styles.section} id="services">
+        <section style={styles.section}>
           <h2 style={styles.heading}>Featured Acts</h2>
-
           <div style={styles.grid3}>
-            {services.map((service) => (
-              <div key={service} style={styles.card}>
-                <p style={styles.cardTitle}>{service}</p>
+            {services.map((s) => (
+              <div key={s} style={styles.card}>
+                <p style={styles.cardTitle}>{s}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section style={styles.section} id="about">
+        <section style={styles.section}>
           <div style={styles.aboutGrid}>
             <div style={styles.aboutCard}>
               <h2 style={styles.subheading}>About</h2>
               <p style={styles.body}>
                 Mad Props Event Co creates eye-catching builds for parties,
                 activations, retail moments, public art, and branded experiences.
-                The style is playful, handcrafted, graphic, and a little theatrical.
               </p>
             </div>
 
             <div style={styles.aboutAccent}>
               <h3 style={styles.subheading}>Built For</h3>
               <p style={styles.body}>
-                Brand activations, event decor, scenic moments, temporary installs,
-                and custom props with personality.
+                Brand activations, event decor, scenic installs, and custom props.
               </p>
             </div>
           </div>
         </section>
 
-        <section style={styles.section} id="work">
+        <section style={styles.section}>
           <h2 style={styles.heading}>Recent Work</h2>
-
           <div style={styles.grid2}>
-            {projects.map((project) => (
-              <div key={project} style={styles.projectCard}>
+            {projects.map((p) => (
+              <div key={p} style={styles.projectCard}>
                 <div style={styles.projectInner}>
-                  <p style={styles.projectText}>{project}</p>
+                  <p style={styles.projectText}>{p}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section style={styles.contact} id="contact">
+        <section style={styles.contact}>
           <h2 style={styles.heading}>Step Right Up</h2>
           <p style={styles.contactText}>
-            Ready to make something unforgettable? Reach out for custom builds,
-            scenic fabrication, and event installs.
+            Ready to make something unforgettable?
           </p>
 
           <div style={styles.contactGrid}>
