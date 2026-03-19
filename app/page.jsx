@@ -273,7 +273,7 @@ export default function Page() {
         </section>
 
         <section style={styles.section}>
-          <h2 style={styles.heading}>Recent Work</h2>
+          <h2 style={styles.heading}>Work</h2>
           <div style={styles.grid2}>
             {projects.map((p) => (
               <div key={p} style={styles.projectCard}>
