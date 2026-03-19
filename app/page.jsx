@@ -28,7 +28,7 @@ export default function Page() {
     },
     hero: {
       textAlign: "center",
-      padding: "0px 24px 40px",
+      padding: "20px 24px 40px",
       borderBottom: "8px solid #160608",
     },
     logo: {
@@ -41,10 +41,10 @@ export default function Page() {
     },
     introBox: {
       maxWidth: "760px",
-      margin: "4px auto 0",
+      margin: "12px auto 0",
       border: "5px solid #160608",
       background: "#f7cfd4",
-      padding: "2px 2px",
+      padding: "24px 28px",
       boxShadow: "8px 8px 0 #e21b3c",
       fontSize: "22px",
       fontWeight: 700,
