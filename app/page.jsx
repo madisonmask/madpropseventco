@@ -1,13 +1,5 @@
-// 👉 FILE: app/page.tsx (Next.js 14+)
-// Put this file inside an /app folder in your repo
-
 export default function Page() {
-  const services = [
-    "Custom props",
-    "Scenic fabrication",
-    "Event installs",
-  ];
-
+  const services = ["Custom props", "Scenic fabrication", "Event installs"];
   const projects = [
     "Oversized icons",
     "Photo moments",
@@ -15,92 +7,303 @@ export default function Page() {
     "Temporary spectacle",
   ];
 
-  return (
-    <div className="min-h-screen bg-[#f0b2b6] px-4 py-8 text-[#160608] md:px-8">
-      <main className="mx-auto max-w-5xl border-[10px] border-[#160608] bg-[#f0b2b6] shadow-[20px_20px_0_#e21b3c]">
-        <section className="border-b-[8px] border-[#160608] px-6 py-12 text-center md:px-10 md:py-16">
-          <div className="mx-auto inline-block rounded-full border-[6px] border-[#e21b3c] bg-[#f7cfd4] px-6 py-2">
-            <p className="text-xs font-black uppercase tracking-[0.45em] md:text-sm">
-              Dallas Event Fabrication
-            </p>
-          </div>
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "#f0b2b6",
+      padding: "32px 16px",
+      color: "#160608",
+      fontFamily: 'Arial, Helvetica, sans-serif',
+    },
+    main: {
+      maxWidth: "1100px",
+      margin: "0 auto",
+      border: "10px solid #160608",
+      background: "#f0b2b6",
+      boxShadow: "20px 20px 0 #e21b3c",
+    },
+    section: {
+      padding: "48px 24px",
+      borderBottom: "8px solid #160608",
+    },
+    hero: {
+      textAlign: "center",
+      padding: "64px 24px",
+      borderBottom: "8px solid #160608",
+    },
+    pill: {
+      display: "inline-block",
+      border: "6px solid #e21b3c",
+      background: "#f7cfd4",
+      padding: "10px 24px",
+      borderRadius: "999px",
+      fontSize: "12px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.35em",
+    },
+    title: {
+      marginTop: "28px",
+      marginBottom: 0,
+      fontSize: "96px",
+      lineHeight: 0.88,
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.06em",
+      textShadow: "2px 2px 0 #ffffff, 6px 6px 0 #160608",
+    },
+    subtitle: {
+      marginTop: "28px",
+      marginBottom: 0,
+      fontSize: "42px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.28em",
+    },
+    introBox: {
+      maxWidth: "760px",
+      margin: "32px auto 0",
+      border: "5px solid #160608",
+      background: "#f7cfd4",
+      padding: "24px 28px",
+      boxShadow: "8px 8px 0 #e21b3c",
+      fontSize: "24px",
+      fontWeight: 700,
+      lineHeight: 1.7,
+    },
+    buttonRow: {
+      display: "flex",
+      gap: "16px",
+      justifyContent: "center",
+      flexWrap: "wrap",
+      marginTop: "32px",
+    },
+    buttonDark: {
+      display: "inline-block",
+      border: "4px solid #160608",
+      background: "#160608",
+      color: "#f7cfd4",
+      padding: "14px 24px",
+      fontSize: "14px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.2em",
+      textDecoration: "none",
+      boxShadow: "5px 5px 0 #e21b3c",
+    },
+    buttonLight: {
+      display: "inline-block",
+      border: "4px solid #160608",
+      background: "#f7cfd4",
+      color: "#160608",
+      padding: "14px 24px",
+      fontSize: "14px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.2em",
+      textDecoration: "none",
+      boxShadow: "5px 5px 0 #160608",
+    },
+    strip: {
+      padding: "22px 24px",
+      borderBottom: "8px solid #160608",
+      background: "#160608",
+      textAlign: "center",
+      color: "#f7cfd4",
+      fontSize: "22px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.22em",
+    },
+    heading: {
+      margin: 0,
+      textAlign: "center",
+      fontSize: "56px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.18em",
+      textShadow: "2px 2px 0 #ffffff, 5px 5px 0 #160608",
+    },
+    grid3: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      gap: "24px",
+      marginTop: "40px",
+    },
+    grid2: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      gap: "24px",
+      marginTop: "40px",
+    },
+    card: {
+      border: "5px solid #160608",
+      background: "#f7cfd4",
+      padding: "24px",
+      textAlign: "center",
+      boxShadow: "7px 7px 0 #e21b3c",
+    },
+    cardTitle: {
+      margin: 0,
+      fontSize: "16px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.3em",
+    },
+    aboutGrid: {
+      display: "grid",
+      gridTemplateColumns: "1.1fr 0.9fr",
+      gap: "24px",
+    },
+    aboutCard: {
+      border: "5px solid #160608",
+      background: "#f7cfd4",
+      padding: "28px",
+      boxShadow: "8px 8px 0 #160608",
+    },
+    aboutAccent: {
+      border: "5px solid #160608",
+      background: "#e21b3c",
+      color: "#fff5f6",
+      padding: "28px",
+      boxShadow: "8px 8px 0 #160608",
+    },
+    subheading: {
+      margin: 0,
+      fontSize: "40px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.15em",
+    },
+    body: {
+      marginTop: "20px",
+      marginBottom: 0,
+      fontSize: "22px",
+      lineHeight: 1.8,
+    },
+    projectCard: {
+      border: "5px solid #160608",
+      background: "#f7cfd4",
+      padding: "32px",
+      textAlign: "center",
+      boxShadow: "8px 8px 0 #e21b3c",
+    },
+    projectInner: {
+      minHeight: "180px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      border: "4px dashed #160608",
+      background: "#f0b2b6",
+      padding: "24px",
+    },
+    projectText: {
+      margin: 0,
+      fontSize: "32px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.12em",
+    },
+    contact: {
+      padding: "48px 24px",
+      textAlign: "center",
+    },
+    contactText: {
+      maxWidth: "760px",
+      margin: "20px auto 0",
+      fontSize: "22px",
+      lineHeight: 1.8,
+    },
+    contactGrid: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      gap: "24px",
+      marginTop: "40px",
+    },
+    contactCard: {
+      border: "5px solid #160608",
+      background: "#f7cfd4",
+      padding: "24px",
+      boxShadow: "7px 7px 0 #e21b3c",
+    },
+    contactDark: {
+      border: "5px solid #f7cfd4",
+      background: "#160608",
+      color: "#f7cfd4",
+      padding: "24px",
+      boxShadow: "7px 7px 0 #e21b3c",
+    },
+    label: {
+      margin: 0,
+      fontSize: "12px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.3em",
+    },
+    value: {
+      marginTop: "14px",
+      marginBottom: 0,
+      fontSize: "28px",
+      fontWeight: 900,
+      wordBreak: "break-word",
+    },
+  };
 
-          <h1 className="mt-8 text-6xl font-black uppercase leading-[0.88] tracking-[0.06em] text-[#160608] [text-shadow:2px_2px_0_#ffffff,6px_6px_0_#160608] md:text-8xl">
+  return (
+    <div style={styles.page}>
+      <main style={styles.main}>
+        <section style={styles.hero}>
+          <div style={styles.pill}>Dallas Event Fabrication</div>
+
+          <h1 style={styles.title}>
             Mad
             <br />
             Props
           </h1>
 
-          <p className="mt-6 text-2xl font-black uppercase tracking-[0.28em] md:text-4xl">
-            Event Co
-          </p>
+          <p style={styles.subtitle}>Event Co</p>
 
-          <div className="mx-auto mt-8 max-w-3xl border-[5px] border-[#160608] bg-[#f7cfd4] px-6 py-5 shadow-[8px_8px_0_#e21b3c]">
-            <p className="text-base font-bold leading-8 md:text-xl">
-              Custom props, playful scenic fabrication, and bold temporary installs
-              for events, activations, and branded moments.
-            </p>
+          <div style={styles.introBox}>
+            Custom props, playful scenic fabrication, and bold temporary installs
+            for events, activations, and branded moments.
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="#work"
-              className="border-[4px] border-[#160608] bg-[#160608] px-6 py-3 text-sm font-black uppercase tracking-[0.2em] text-[#f7cfd4] shadow-[5px_5px_0_#e21b3c] transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_#e21b3c]"
-            >
-              See Work
-            </a>
-            <a
-              href="#contact"
-              className="border-[4px] border-[#160608] bg-[#f7cfd4] px-6 py-3 text-sm font-black uppercase tracking-[0.2em] shadow-[5px_5px_0_#160608] transition hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_#160608]"
-            >
-              Contact
-            </a>
+          <div style={styles.buttonRow}>
+            <a href="#work" style={styles.buttonDark}>See Work</a>
+            <a href="#contact" style={styles.buttonLight}>Contact</a>
           </div>
         </section>
 
-        <section className="border-b-[8px] border-[#160608] bg-[#160608] px-6 py-5 text-center md:px-10">
-          <p className="text-sm font-black uppercase tracking-[0.3em] text-[#f7cfd4] md:text-xl">
-            Vintage circus style • handmade builds • big personality
-          </p>
+        <section style={styles.strip}>
+          Vintage circus style • handmade builds • big personality
         </section>
 
-        <section className="border-b-[8px] border-[#160608] px-6 py-12 md:px-10" id="services">
-          <h2 className="text-center text-4xl font-black uppercase tracking-[0.18em] [text-shadow:2px_2px_0_#ffffff,5px_5px_0_#160608] md:text-5xl">
-            Featured Acts
-          </h2>
+        <section style={styles.section} id="services">
+          <h2 style={styles.heading}>Featured Acts</h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div style={styles.grid3}>
             {services.map((service) => (
-              <div
-                key={service}
-                className="border-[5px] border-[#160608] bg-[#f7cfd4] p-6 text-center shadow-[7px_7px_0_#e21b3c]"
-              >
-                <p className="text-sm font-black uppercase tracking-[0.3em]">
-                  {service}
-                </p>
+              <div key={service} style={styles.card}>
+                <p style={styles.cardTitle}>{service}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="border-b-[8px] border-[#160608] px-6 py-12 md:px-10" id="about">
-          <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-            <div className="border-[5px] border-[#160608] bg-[#f7cfd4] p-7 shadow-[8px_8px_0_#160608]">
-              <h2 className="text-3xl font-black uppercase tracking-[0.15em] md:text-4xl">
-                About
-              </h2>
-              <p className="mt-5 text-base leading-8 md:text-lg">
+        <section style={styles.section} id="about">
+          <div style={styles.aboutGrid}>
+            <div style={styles.aboutCard}>
+              <h2 style={styles.subheading}>About</h2>
+              <p style={styles.body}>
                 Mad Props Event Co creates eye-catching builds for parties,
                 activations, retail moments, public art, and branded experiences.
                 The style is playful, handcrafted, graphic, and a little theatrical.
               </p>
             </div>
 
-            <div className="border-[5px] border-[#160608] bg-[#e21b3c] p-7 text-[#fff5f6] shadow-[8px_8px_0_#160608]">
-              <h3 className="text-2xl font-black uppercase tracking-[0.18em] md:text-3xl">
-                Built For
-              </h3>
-              <p className="mt-5 text-base font-bold leading-8 md:text-lg">
+            <div style={styles.aboutAccent}>
+              <h3 style={styles.subheading}>Built For</h3>
+              <p style={styles.body}>
                 Brand activations, event decor, scenic moments, temporary installs,
                 and custom props with personality.
               </p>
@@ -108,48 +311,39 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="border-b-[8px] border-[#160608] px-6 py-12 md:px-10" id="work">
-          <h2 className="text-center text-4xl font-black uppercase tracking-[0.18em] [text-shadow:2px_2px_0_#ffffff,5px_5px_0_#160608] md:text-5xl">
-            Recent Work
-          </h2>
+        <section style={styles.section} id="work">
+          <h2 style={styles.heading}>Recent Work</h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div style={styles.grid2}>
             {projects.map((project) => (
-              <div
-                key={project}
-                className="border-[5px] border-[#160608] bg-[#f7cfd4] p-8 text-center shadow-[8px_8px_0_#e21b3c]"
-              >
-                <div className="flex min-h-[180px] items-center justify-center border-[4px] border-dashed border-[#160608] bg-[#f0b2b6] p-6">
-                  <p className="text-2xl font-black uppercase tracking-[0.12em]">
-                    {project}
-                  </p>
+              <div key={project} style={styles.projectCard}>
+                <div style={styles.projectInner}>
+                  <p style={styles.projectText}>{project}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="px-6 py-12 text-center md:px-10" id="contact">
-          <h2 className="text-4xl font-black uppercase tracking-[0.18em] [text-shadow:2px_2px_0_#ffffff,5px_5px_0_#160608] md:text-5xl">
-            Step Right Up
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 md:text-lg">
+        <section style={styles.contact} id="contact">
+          <h2 style={styles.heading}>Step Right Up</h2>
+          <p style={styles.contactText}>
             Ready to make something unforgettable? Reach out for custom builds,
             scenic fabrication, and event installs.
           </p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="border-[5px] border-[#160608] bg-[#f7cfd4] p-6 shadow-[7px_7px_0_#e21b3c]">
-              <p className="text-xs font-black uppercase tracking-[0.3em]">Email</p>
-              <p className="mt-3 break-all text-lg font-black">hello@madpropseventco.com</p>
+          <div style={styles.contactGrid}>
+            <div style={styles.contactCard}>
+              <p style={styles.label}>Email</p>
+              <p style={styles.value}>hello@madpropseventco.com</p>
             </div>
-            <div className="border-[5px] border-[#160608] bg-[#f7cfd4] p-6 shadow-[7px_7px_0_#e21b3c]">
-              <p className="text-xs font-black uppercase tracking-[0.3em]">Instagram</p>
-              <p className="mt-3 text-lg font-black">@madpropseventco</p>
+            <div style={styles.contactCard}>
+              <p style={styles.label}>Instagram</p>
+              <p style={styles.value}>@madpropseventco</p>
             </div>
-            <div className="border-[5px] border-[#f7cfd4] bg-[#160608] p-6 text-[#f7cfd4] shadow-[7px_7px_0_#e21b3c]">
-              <p className="text-xs font-black uppercase tracking-[0.3em]">Based In</p>
-              <p className="mt-3 text-lg font-black">Dallas, Texas</p>
+            <div style={styles.contactDark}>
+              <p style={styles.label}>Based In</p>
+              <p style={styles.value}>Dallas, Texas</p>
             </div>
           </div>
         </section>
@@ -157,3 +351,4 @@ export default function Page() {
     </div>
   );
 }
+
