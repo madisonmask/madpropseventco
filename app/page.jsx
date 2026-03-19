@@ -28,20 +28,20 @@ export default function Page() {
     },
     hero: {
       textAlign: "center",
-      padding: "6px 24px 50px",
+      padding: "0px 24px 40px",
       borderBottom: "8px solid #160608",
     },
     logo: {
       display: "block",
       maxWidth: "560px",
       width: "100%",
-      margin: "0 auto 10px",
+      margin: "0 auto 8px",
       transform: "rotate(-1deg)",
       filter: "drop-shadow(0px 0px 0 #160608)",
     },
     introBox: {
       maxWidth: "760px",
-      margin: "32px auto 0",
+      margin: "12px auto 0",
       border: "5px solid #160608",
       background: "#f7cfd4",
       padding: "24px 28px",
