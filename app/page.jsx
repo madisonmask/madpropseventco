@@ -1,11 +1,30 @@
 export default function Page() {
   const services = ["Custom props", "Scenic fabrication", "Event installs"];
+
   const projects = [
-    "Oversized icons",
-    "Photo moments",
-    "Brand activations",
-    "Temporary spectacle",
+    {
+      title: "Grateful Community Wall",
+      image: "/grateful-wall.jpg",
+      alt: "Interactive grateful community wall installation",
+    },
+    {
+      title: "You Are Here Marker",
+      image: "/you-are-here.jpg",
+      alt: "Large red map pin sculpture installation",
+    },
+    {
+      title: "St. Patrick's Day Bench",
+      image: "/st-patricks-bench.jpg",
+      alt: "Green St. Patrick's Day bench photo op installation",
+    },
+    {
+      title: "Year of the Snake",
+      image: "/year-of-the-snake.jpg",
+      alt: "Large snake sculpture event installation",
+    },
   ];
+
+  const galleryImages = [...projects, ...projects];
 
   const styles = {
     page: {
@@ -13,7 +32,7 @@ export default function Page() {
       background: "#f0b2b6",
       padding: "32px 16px",
       color: "#160608",
-      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontFamily: "Arial, Helvetica, sans-serif",
     },
     main: {
       maxWidth: "1100px",
@@ -23,12 +42,12 @@ export default function Page() {
       boxShadow: "20px 20px 0 #e21b3c",
     },
     section: {
-      padding: "48px 24px",
+      padding: "24px 24px 40px",
       borderBottom: "8px solid #160608",
     },
     hero: {
       textAlign: "center",
-      padding: "20px 24px 40px",
+      padding: "0 24px 40px",
       borderBottom: "8px solid #160608",
     },
     logo: {
@@ -83,17 +102,6 @@ export default function Page() {
       textDecoration: "none",
       boxShadow: "5px 5px 0 #160608",
     },
-    strip: {
-      padding: "22px 24px",
-      borderBottom: "8px solid #160608",
-      background: "#160608",
-      textAlign: "center",
-      color: "#f7cfd4",
-      fontSize: "20px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.22em",
-    },
     heading: {
       margin: 0,
       textAlign: "center",
@@ -105,13 +113,7 @@ export default function Page() {
     },
     grid3: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
-      gap: "24px",
-      marginTop: "40px",
-    },
-    grid2: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
       gap: "24px",
       marginTop: "40px",
     },
@@ -156,28 +158,44 @@ export default function Page() {
     },
     body: {
       marginTop: "20px",
+      marginBottom: 0,
       fontSize: "20px",
       lineHeight: 1.8,
     },
-    projectCard: {
+    galleryViewport: {
+      overflow: "hidden",
+      marginTop: "40px",
       border: "5px solid #160608",
       background: "#f7cfd4",
-      padding: "32px",
-      textAlign: "center",
       boxShadow: "8px 8px 0 #e21b3c",
+      padding: "20px",
     },
-    projectInner: {
-      minHeight: "180px",
+    galleryTrack: {
       display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      border: "4px dashed #160608",
+      gap: "20px",
+      width: "max-content",
+      animation: "scrollGallery 28s linear infinite",
+      padding: "8px 0",
+    },
+    galleryCard: {
+      width: "320px",
+      flex: "0 0 auto",
+      border: "4px solid #160608",
+      background: "#f7cfd4",
+      padding: "14px",
+      boxShadow: "6px 6px 0 #e21b3c",
+    },
+    projectImage: {
+      display: "block",
+      width: "100%",
+      height: "240px",
+      objectFit: "cover",
+      border: "4px solid #160608",
       background: "#f0b2b6",
-      padding: "24px",
     },
     projectText: {
-      margin: 0,
-      fontSize: "28px",
+      margin: "18px 0 0",
+      fontSize: "22px",
       fontWeight: 900,
       textTransform: "uppercase",
       letterSpacing: "0.12em",
@@ -194,7 +212,7 @@ export default function Page() {
     },
     contactGrid: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
       gap: "24px",
       marginTop: "40px",
     },
@@ -212,6 +230,7 @@ export default function Page() {
       boxShadow: "7px 7px 0 #e21b3c",
     },
     label: {
+      margin: 0,
       fontSize: "12px",
       fontWeight: 900,
       textTransform: "uppercase",
@@ -219,13 +238,30 @@ export default function Page() {
     },
     value: {
       marginTop: "14px",
+      marginBottom: 0,
       fontSize: "24px",
       fontWeight: 900,
+      wordBreak: "break-word",
     },
   };
 
   return (
     <div style={styles.page}>
+      <style>{`
+        @keyframes scrollGallery {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 900px) {
+          .services-grid,
+          .about-grid,
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+
       <main style={styles.main}>
         <section style={styles.hero}>
           <img src="/logo.png" alt="Mad Props Logo" style={styles.logo} />
@@ -241,57 +277,62 @@ export default function Page() {
           </div>
         </section>
 
-
-        <section style={styles.section}>
+        <section style={styles.section} id="services">
           <h2 style={styles.heading}>Featured Acts</h2>
-          <div style={styles.grid3}>
-            {services.map((s) => (
-              <div key={s} style={styles.card}>
-                <p style={styles.cardTitle}>{s}</p>
+
+          <div className="services-grid" style={styles.grid3}>
+            {services.map((service) => (
+              <div key={service} style={styles.card}>
+                <p style={styles.cardTitle}>{service}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section style={styles.section}>
-          <div style={styles.aboutGrid}>
+        <section style={styles.section} id="about">
+          <div className="about-grid" style={styles.aboutGrid}>
             <div style={styles.aboutCard}>
               <h2 style={styles.subheading}>About</h2>
               <p style={styles.body}>
                 Mad Props Event Co creates eye-catching builds for parties,
                 activations, retail moments, public art, and branded experiences.
+                The style is playful, handcrafted, graphic, and a little theatrical.
               </p>
             </div>
 
             <div style={styles.aboutAccent}>
               <h3 style={styles.subheading}>Built For</h3>
               <p style={styles.body}>
-                Brand activations, event decor, scenic installs, and custom props.
+                Brand activations, event decor, scenic moments, temporary installs,
+                and custom props with personality.
               </p>
             </div>
           </div>
         </section>
 
-        <section style={styles.section}>
-          <h2 style={styles.heading}>Work</h2>
-          <div style={styles.grid2}>
-            {projects.map((p) => (
-              <div key={p} style={styles.projectCard}>
-                <div style={styles.projectInner}>
-                  <p style={styles.projectText}>{p}</p>
+        <section style={styles.section} id="work">
+          <h2 style={styles.heading}>Recent Work</h2>
+
+          <div style={styles.galleryViewport}>
+            <div style={styles.galleryTrack}>
+              {galleryImages.map((project, index) => (
+                <div key={`${project.title}-${index}`} style={styles.galleryCard}>
+                  <img src={project.image} alt={project.alt} style={styles.projectImage} />
+                  <p style={styles.projectText}>{project.title}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
-        <section style={styles.contact}>
+        <section style={styles.contact} id="contact">
           <h2 style={styles.heading}>Step Right Up</h2>
           <p style={styles.contactText}>
-            Ready to make something unforgettable?
+            Ready to make something unforgettable? Reach out for custom builds,
+            scenic fabrication, and event installs.
           </p>
 
-          <div style={styles.contactGrid}>
+          <div className="contact-grid" style={styles.contactGrid}>
             <div style={styles.contactCard}>
               <p style={styles.label}>Email</p>
               <p style={styles.value}>hello@madpropseventco.com</p>
