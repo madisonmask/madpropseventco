@@ -41,7 +41,7 @@ export default function Page() {
     },
     introBox: {
       maxWidth: "760px",
-      margin: "12px auto 0",
+      margin: "4px auto 0",
       border: "5px solid #160608",
       background: "#f7cfd4",
       padding: "24px 28px",
