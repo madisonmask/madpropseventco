@@ -44,7 +44,7 @@ export default function Page() {
       margin: "4px auto 0",
       border: "5px solid #160608",
       background: "#f7cfd4",
-      padding: "2px 28px",
+      padding: "2px 2px",
       boxShadow: "8px 8px 0 #e21b3c",
       fontSize: "22px",
       fontWeight: 700,
