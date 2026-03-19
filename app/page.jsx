@@ -28,37 +28,24 @@ export default function Page() {
     },
     hero: {
       textAlign: "center",
-      padding: "64px 24px",
+      padding: "80px 24px",
       borderBottom: "8px solid #160608",
     },
-    pill: {
-      display: "inline-block",
-      border: "6px solid #e21b3c",
-      background: "#f7cfd4",
-      padding: "10px 24px",
-      borderRadius: "999px",
-      fontSize: "12px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.35em",
-    },
-    title: {
-      marginTop: "28px",
-      marginBottom: 0,
-      fontSize: "96px",
-      lineHeight: 0.88,
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.06em",
-      textShadow: "2px 2px 0 #ffffff, 6px 6px 0 #160608",
+    logo: {
+      display: "block",
+      maxWidth: "720px",
+      width: "100%",
+      margin: "0 auto",
+      transform: "rotate(-1deg)",
+      filter: "drop-shadow(6px 6px 0 #160608)",
     },
     subtitle: {
-      marginTop: "28px",
+      marginTop: "24px",
       marginBottom: 0,
-      fontSize: "42px",
+      fontSize: "36px",
       fontWeight: 900,
       textTransform: "uppercase",
-      letterSpacing: "0.28em",
+      letterSpacing: "0.3em",
     },
     introBox: {
       maxWidth: "760px",
@@ -67,7 +54,7 @@ export default function Page() {
       background: "#f7cfd4",
       padding: "24px 28px",
       boxShadow: "8px 8px 0 #e21b3c",
-      fontSize: "24px",
+      fontSize: "22px",
       fontWeight: 700,
       lineHeight: 1.7,
     },
@@ -110,7 +97,7 @@ export default function Page() {
       background: "#160608",
       textAlign: "center",
       color: "#f7cfd4",
-      fontSize: "22px",
+      fontSize: "20px",
       fontWeight: 900,
       textTransform: "uppercase",
       letterSpacing: "0.22em",
@@ -118,7 +105,7 @@ export default function Page() {
     heading: {
       margin: 0,
       textAlign: "center",
-      fontSize: "56px",
+      fontSize: "52px",
       fontWeight: 900,
       textTransform: "uppercase",
       letterSpacing: "0.18em",
@@ -145,7 +132,7 @@ export default function Page() {
     },
     cardTitle: {
       margin: 0,
-      fontSize: "16px",
+      fontSize: "14px",
       fontWeight: 900,
       textTransform: "uppercase",
       letterSpacing: "0.3em",
@@ -170,7 +157,7 @@ export default function Page() {
     },
     subheading: {
       margin: 0,
-      fontSize: "40px",
+      fontSize: "36px",
       fontWeight: 900,
       textTransform: "uppercase",
       letterSpacing: "0.15em",
@@ -178,7 +165,7 @@ export default function Page() {
     body: {
       marginTop: "20px",
       marginBottom: 0,
-      fontSize: "22px",
+      fontSize: "20px",
       lineHeight: 1.8,
     },
     projectCard: {
@@ -199,7 +186,7 @@ export default function Page() {
     },
     projectText: {
       margin: 0,
-      fontSize: "32px",
+      fontSize: "28px",
       fontWeight: 900,
       textTransform: "uppercase",
       letterSpacing: "0.12em",
@@ -211,7 +198,7 @@ export default function Page() {
     contactText: {
       maxWidth: "760px",
       margin: "20px auto 0",
-      fontSize: "22px",
+      fontSize: "20px",
       lineHeight: 1.8,
     },
     contactGrid: {
@@ -243,7 +230,7 @@ export default function Page() {
     value: {
       marginTop: "14px",
       marginBottom: 0,
-      fontSize: "28px",
+      fontSize: "24px",
       fontWeight: 900,
       wordBreak: "break-word",
     },
@@ -253,13 +240,7 @@ export default function Page() {
     <div style={styles.page}>
       <main style={styles.main}>
         <section style={styles.hero}>
-          <div style={styles.pill}>Dallas Event Fabrication</div>
-
-          <h1 style={styles.title}>
-            Mad
-            <br />
-            Props
-          </h1>
+          <img src="/logo.png" alt="Mad Props Logo" style={styles.logo} />
 
           <p style={styles.subtitle}>Event Co</p>
 
@@ -351,4 +332,3 @@ export default function Page() {
     </div>
   );
 }
-
