@@ -28,7 +28,7 @@ export default function Page() {
     },
     hero: {
       textAlign: "center",
-      padding: "60px 24px 50px",
+      padding: "6px 24px 50px",
       borderBottom: "8px solid #160608",
     },
     logo: {
