@@ -37,7 +37,7 @@ export default function Page() {
       width: "100%",
       margin: "0 auto 10px",
       transform: "rotate(-1deg)",
-      filter: "drop-shadow(8px 8px 0 #160608)",
+      filter: "drop-shadow(0px 0px 0 #160608)",
     },
     introBox: {
       maxWidth: "760px",
