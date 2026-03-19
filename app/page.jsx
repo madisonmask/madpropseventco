@@ -241,9 +241,6 @@ export default function Page() {
           </div>
         </section>
 
-        <section style={styles.strip}>
-          Vintage circus style • handmade builds • big personality
-        </section>
 
         <section style={styles.section}>
           <h2 style={styles.heading}>Featured Acts</h2>
