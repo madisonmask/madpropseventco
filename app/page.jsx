@@ -1,6 +1,6 @@
 "use client";
 
-export default function Page() {
+export default function Page(const LIGHT_BLUE = "#7dd3fc";) {
   const services = ["Custom props", "Scenic fabrication", "Event installs"];
 
   const projects = [
@@ -448,14 +448,14 @@ export default function Page() {
     <div style={styles.headingWrap}>
       <svg className="heading-flourish" viewBox="0 0 90 24" style={styles.headingFlourish} fill="none">
         <path d="M4 12 H86" stroke="#160608" strokeWidth="4" strokeLinecap="round" />
-        <circle cx="45" cy="12" r="6" fill="#e21b3c" stroke="#160608" strokeWidth="3" />
+        <circle cx="45" cy="12" r="6" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="3" />
         <path d="M20 12 C12 6, 12 18, 20 12 Z" fill="#160608" />
         <path d="M70 12 C78 6, 78 18, 70 12 Z" fill="#160608" />
       </svg>
       <h2 className="poster-heading" style={styles.heading}>{title}</h2>
       <svg className="heading-flourish" viewBox="0 0 90 24" style={styles.headingFlourish} fill="none">
         <path d="M4 12 H86" stroke="#160608" strokeWidth="4" strokeLinecap="round" />
-        <circle cx="45" cy="12" r="6" fill="#e21b3c" stroke="#160608" strokeWidth="3" />
+        <circle cx="45" cy="12" r="6" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="3" />
         <path d="M20 12 C12 6, 12 18, 20 12 Z" fill="#160608" />
         <path d="M70 12 C78 6, 78 18, 70 12 Z" fill="#160608" />
       </svg>
@@ -573,10 +573,11 @@ export default function Page() {
             <path d="M70 340 C122 340, 126 378, 92 406 C122 432, 122 478, 70 486" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
             <path d="M70 600 C18 600, 14 638, 48 666 C18 692, 18 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
             <path d="M70 600 C122 600, 126 638, 92 666 C122 692, 122 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <circle cx="70" cy="20" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="248" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="476" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="704" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="20" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="248" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="476" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="704" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
+<path d="M70 860 l-20 -28 h40 z" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
             <path d="M70 860 l-20 -28 h40 z" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
           </svg>
         </div>
