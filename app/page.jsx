@@ -24,9 +24,7 @@ export default function Page() {
     },
   ];
 
-  const galleryImages = [...projects, ...projects];
-
-  const styles = {
+    const styles = {
     page: {
       minHeight: "100vh",
       background: "#f0b2b6",
@@ -56,7 +54,7 @@ export default function Page() {
       width: "100%",
       margin: "0 auto 8px",
       transform: "rotate(-1deg)",
-      filter: "drop-shadow(0px 0px 0 #160608)",
+      filter: "drop-shadow(8px 8px 0 #160608)",
     },
     introBox: {
       maxWidth: "760px",
@@ -101,6 +99,17 @@ export default function Page() {
       letterSpacing: "0.2em",
       textDecoration: "none",
       boxShadow: "5px 5px 0 #160608",
+    },
+    strip: {
+      padding: "22px 24px",
+      borderBottom: "8px solid #160608",
+      background: "#160608",
+      textAlign: "center",
+      color: "#f7cfd4",
+      fontSize: "20px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.22em",
     },
     heading: {
       margin: 0,
@@ -170,12 +179,15 @@ export default function Page() {
       boxShadow: "8px 8px 0 #e21b3c",
       padding: "20px",
     },
+    galleryRail: {
+      display: "flex",
+      width: "max-content",
+      animation: "scrollGallery 24s linear infinite",
+    },
     galleryTrack: {
       display: "flex",
       gap: "20px",
-      width: "max-content",
-      animation: "scrollGallery 28s linear infinite",
-      padding: "8px 0",
+      paddingRight: "20px",
     },
     galleryCard: {
       width: "320px",
@@ -250,6 +262,8 @@ export default function Page() {
       <style>{`
         @keyframes scrollGallery {
           from { transform: translateX(0); }
+          to { transform: translateX(-1360px); }
+        }
           to { transform: translateX(-50%); }
         }
 
@@ -275,6 +289,10 @@ export default function Page() {
             <a href="#work" style={styles.buttonDark}>See Work</a>
             <a href="#contact" style={styles.buttonLight}>Contact</a>
           </div>
+        </section>
+
+        <section style={styles.strip}>
+          Vintage circus style • handmade builds • big personality
         </section>
 
         <section style={styles.section} id="services">
@@ -314,13 +332,24 @@ export default function Page() {
           <h2 style={styles.heading}>Recent Work</h2>
 
           <div style={styles.galleryViewport}>
-            <div style={styles.galleryTrack}>
-              {galleryImages.map((project, index) => (
-                <div key={`${project.title}-${index}`} style={styles.galleryCard}>
-                  <img src={project.image} alt={project.alt} style={styles.projectImage} />
-                  <p style={styles.projectText}>{project.title}</p>
-                </div>
-              ))}
+            <div style={styles.galleryRail}>
+              <div style={styles.galleryTrack}>
+                {projects.map((project) => (
+                  <div key={project.title} style={styles.galleryCard}>
+                    <img src={project.image} alt={project.alt} style={styles.projectImage} />
+                    <p style={styles.projectText}>{project.title}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div style={styles.galleryTrack} aria-hidden="true">
+                {projects.map((project) => (
+                  <div key={`${project.title}-repeat`} style={styles.galleryCard}>
+                    <img src={project.image} alt="" style={styles.projectImage} />
+                    <p style={styles.projectText}>{project.title}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
