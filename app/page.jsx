@@ -719,10 +719,10 @@ export default function Page() {
 
           <div style={styles.contactGridWrap}>
             <div className="contact-grid" style={styles.contactGrid}>
-              <a href="mailto:hello@madpropseventco.com" className="poster-contact-card" style={styles.contactCard}>
+              <a href="mailto:madison@madpropsevent.co" className="poster-contact-card" style={styles.contactCard}>
                 <div>
                   <div style={{fontSize:"12px", fontWeight:900, letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"6px"}}>Email</div>
-                  <span className="poster-contact-value" style={styles.value}>madison@madpropseventco.com</span>
+                  <span className="poster-contact-value" style={styles.value}>madison@madpropsevent.co</span>
                 </div>
               </a>
 
