@@ -121,15 +121,6 @@ export default function Page() {
       gap: "24px",
       marginTop: "40px",
     },
-    card: {
-      width: "300px",
-      flex: "0 0 auto",
-      border: "4px solid #160608",
-      background: "#f7cfd4",
-      padding: "12px",
-      boxShadow: "6px 6px 0 #e21b3c",
-      boxSizing: "border-box",
-    },
     serviceCard: {
       border: "5px solid #160608",
       background: "#f7cfd4",
@@ -188,6 +179,15 @@ export default function Page() {
       gap: "20px",
       width: "max-content",
     },
+    card: {
+      width: "300px",
+      flex: "0 0 auto",
+      border: "4px solid #160608",
+      background: "#f7cfd4",
+      padding: "12px",
+      boxShadow: "6px 6px 0 #e21b3c",
+      boxSizing: "border-box",
+    },
     img: {
       width: "100%",
       height: "220px",
@@ -201,10 +201,6 @@ export default function Page() {
       fontWeight: 900,
       textTransform: "uppercase",
       fontSize: "18px",
-    },
-    contact: {
-      padding: "48px 24px",
-      textAlign: "center",
     },
     logosGrid: {
       display: "grid",
@@ -228,7 +224,49 @@ export default function Page() {
       filter: "grayscale(100%)",
       opacity: 0.85,
     },
+    contact: {
+      padding: "48px 24px",
+      textAlign: "center",
+    },
+    contactText: {
+      maxWidth: "760px",
+      margin: "20px auto 0",
+      fontSize: "20px",
+      lineHeight: 1.8,
+    },
+    contactGrid: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      gap: "24px",
+      marginTop: "40px",
+    },
+    contactCard: {
+      border: "5px solid #160608",
+      background: "#f7cfd4",
+      padding: "24px",
+      boxShadow: "7px 7px 0 #e21b3c",
+    },
+    contactDark: {
+      border: "5px solid #f7cfd4",
+      background: "#160608",
+      color: "#f7cfd4",
+      padding: "24px",
+      boxShadow: "7px 7px 0 #e21b3c",
+    },
+    label: {
+      margin: 0,
+      fontSize: "12px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.3em",
+    },
     value: {
+      marginTop: "14px",
+      marginBottom: 0,
+      fontSize: "24px",
+      fontWeight: 900,
+      wordBreak: "break-word",
+    },
   };
 
   return (
