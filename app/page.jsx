@@ -722,7 +722,7 @@ export default function Page() {
               <a href="mailto:hello@madpropseventco.com" className="poster-contact-card" style={styles.contactCard}>
                 <div>
                   <div style={{fontSize:"12px", fontWeight:900, letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"6px"}}>Email</div>
-                  <span className="poster-contact-value" style={styles.value}>hello@madpropseventco.com</span>
+                  <span className="poster-contact-value" style={styles.value}>madison@madpropseventco.com</span>
                 </div>
               </a>
 
