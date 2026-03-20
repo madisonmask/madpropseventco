@@ -599,7 +599,7 @@ export default function Page() {
         </div>
 
         <section className="poster-hero" style={styles.hero}>
-          <div style={styles.heroTopBand}>Madison Mask Presents</div>
+          <div style={styles.heroTopBand}> Madison Mask Presents </div>
 
           <div className="poster-logo-wrap" style={styles.logoWrap}>
             <div className="top-ornament" style={styles.topOrnamentLeft}>
