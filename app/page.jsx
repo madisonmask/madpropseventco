@@ -603,6 +603,13 @@ export default function Page() {
   Madison Mask Presents
 </div>
 
+        logoWrap: {
+  position: "relative",
+  display: "inline-block",
+  padding: "0 120px",
+  marginTop: "10px", // 👈 add this
+},
+
           <div className="poster-logo-wrap" style={styles.logoWrap}>
             <div className="top-ornament" style={styles.topOrnamentLeft}>
               <svg viewBox="0 0 140 220" width="100%" height="100%" fill="none">
