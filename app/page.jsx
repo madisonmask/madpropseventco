@@ -1,6 +1,6 @@
 "use client";
 
-export default function Page(const LIGHT_BLUE = "#7dd3fc";) {
+export default function Page() {
   const services = ["Custom props", "Scenic fabrication", "Event installs"];
 
   const projects = [
