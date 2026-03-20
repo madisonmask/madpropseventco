@@ -607,7 +607,7 @@ export default function Page() {
   position: "relative",
   display: "inline-block",
   padding: "0 120px",
-  marginTop: "10px", // 👈 add this
+  marginTop: "10px", // 
 },
 
           <div className="poster-logo-wrap" style={styles.logoWrap}>
