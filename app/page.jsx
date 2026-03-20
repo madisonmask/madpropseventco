@@ -72,10 +72,6 @@ export default function Page() {
       display: "flex",
       gap: "20px",
       width: "max-content",
-      animationName: "scroll",
-      animationDuration: "30s",
-      animationTimingFunction: "linear",
-      animationIterationCount: "infinite",
     },
     card: {
       width: "300px",
@@ -101,10 +97,15 @@ export default function Page() {
 
   return (
     <div style={styles.page}>
-      <style jsx global>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+      <style>{`
+        @keyframes scrollGallery {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+
+        .moving-gallery-track {
+          animation: scrollGallery 30s linear infinite;
+          will-change: transform;
         }
       `}</style>
 
@@ -121,7 +122,7 @@ export default function Page() {
           <h2 style={styles.heading}>Recent Work</h2>
 
           <div style={styles.galleryWrap}>
-            <div style={styles.galleryTrack}>
+            <div className="moving-gallery-track" style={styles.galleryTrack}>
               {[...projects, ...projects].map((p, i) => (
                 <div key={i} style={styles.card}>
                   <img src={p.image} style={styles.img} />
