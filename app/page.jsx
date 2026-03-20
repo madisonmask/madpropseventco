@@ -599,7 +599,7 @@ export default function Page() {
         </div>
 
         <section className="poster-hero" style={styles.hero}>
-          <div style={styles.heroTopBand}>Mad Props Event Co Presents</div>
+          <div style={styles.heroTopBand}>Madison Mask Presents</div>
 
           <div className="poster-logo-wrap" style={styles.logoWrap}>
             <div className="top-ornament" style={styles.topOrnamentLeft}>
@@ -638,10 +638,7 @@ export default function Page() {
             <a href="#contact" style={styles.buttonLight}>Contact</a>
           </div>
         </section>
-
-        <section style={styles.strip}>
-          Vintage circus style • handmade builds • big personality
-        </section>
+        
 
         <section className="poster-section" style={styles.section} id="services">
           {headingBlock("Featured Acts")}
