@@ -1,40 +1,10 @@
-"use client";
-
-import { useState } from "react";
-
 export default function Page() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const projectSlides = [
-    {
-      title: "Grateful Community Wall",
-      image: "/grateful-wall.jpg",
-      alt: "Interactive grateful community wall installation",
-    },
-    {
-      title: "You Are Here Marker",
-      image: "/you-are-here.jpg",
-      alt: "Large red map pin sculpture installation",
-    },
-    {
-      title: "St. Patrick's Day Bench",
-      image: "/st-patricks-bench.jpg",
-      alt: "Green St. Patrick's Day bench photo op installation",
-    },
-    {
-      title: "Year of the Snake",
-      image: "/year-of-the-snake.jpg",
-      alt: "Large snake sculpture event installation",
-    },
+  const projects = [
+    { title: "Grateful Community Wall", image: "/grateful-wall.jpg" },
+    { title: "You Are Here Marker", image: "/you-are-here.jpg" },
+    { title: "St. Patrick's Day Bench", image: "/st-patricks-bench.jpg" },
+    { title: "Year of the Snake", image: "/year-of-the-snake.jpg" },
   ];
-
-  const goPrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? projectSlides.length - 1 : prev - 1));
-  };
-
-  const goNext = () => {
-    setCurrentSlide((prev) => (prev === projectSlides.length - 1 ? 0 : prev + 1));
-  };
-  const services = ["Custom props", "Scenic fabrication", "Event installs"];
 
   const styles = {
     page: {
@@ -66,7 +36,7 @@ export default function Page() {
       width: "100%",
       margin: "0 auto 8px",
       transform: "rotate(-1deg)",
-      filter: "drop-shadow(0px 0px 0 #160608)",
+      filter: "drop-shadow(8px 8px 0 #160608)",
     },
     introBox: {
       maxWidth: "760px",
@@ -79,50 +49,6 @@ export default function Page() {
       fontWeight: 700,
       lineHeight: 1.7,
     },
-    buttonRow: {
-      display: "flex",
-      gap: "16px",
-      justifyContent: "center",
-      flexWrap: "wrap",
-      marginTop: "32px",
-    },
-    buttonDark: {
-      display: "inline-block",
-      border: "4px solid #160608",
-      background: "#160608",
-      color: "#f7cfd4",
-      padding: "14px 24px",
-      fontSize: "14px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.2em",
-      textDecoration: "none",
-      boxShadow: "5px 5px 0 #e21b3c",
-    },
-    buttonLight: {
-      display: "inline-block",
-      border: "4px solid #160608",
-      background: "#f7cfd4",
-      color: "#160608",
-      padding: "14px 24px",
-      fontSize: "14px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.2em",
-      textDecoration: "none",
-      boxShadow: "5px 5px 0 #160608",
-    },
-    strip: {
-      padding: "22px 24px",
-      borderBottom: "8px solid #160608",
-      background: "#160608",
-      textAlign: "center",
-      color: "#f7cfd4",
-      fontSize: "20px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.22em",
-    },
     heading: {
       margin: 0,
       textAlign: "center",
@@ -132,282 +58,74 @@ export default function Page() {
       letterSpacing: "0.18em",
       textShadow: "2px 2px 0 #ffffff, 5px 5px 0 #160608",
     },
-    grid3: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-      gap: "24px",
-      marginTop: "40px",
-    },
-    card: {
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      padding: "24px",
-      textAlign: "center",
-      boxShadow: "7px 7px 0 #e21b3c",
-    },
-    cardTitle: {
-      margin: 0,
-      fontSize: "14px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.3em",
-    },
-    aboutGrid: {
-      display: "grid",
-      gridTemplateColumns: "1.1fr 0.9fr",
-      gap: "24px",
-    },
-    aboutCard: {
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      padding: "28px",
-      boxShadow: "8px 8px 0 #160608",
-    },
-    aboutAccent: {
-      border: "5px solid #160608",
-      background: "#e21b3c",
-      color: "#fff5f6",
-      padding: "28px",
-      boxShadow: "8px 8px 0 #160608",
-    },
-    subheading: {
-      margin: 0,
-      fontSize: "36px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.15em",
-    },
-    body: {
-      marginTop: "20px",
-      marginBottom: 0,
-      fontSize: "20px",
-      lineHeight: 1.8,
-    },
-    sliderWrap: {
+    galleryWrap: {
+      overflow: "hidden",
       marginTop: "40px",
       border: "5px solid #160608",
       background: "#f7cfd4",
       boxShadow: "8px 8px 0 #e21b3c",
       padding: "20px",
     },
-    sliderStage: {
-      border: "4px solid #160608",
-      background: "#f0b2b6",
-      padding: "14px",
+    galleryTrack: {
+      display: "flex",
+      gap: "20px",
+      width: "max-content",
+      animationName: "scroll",
+      animationDuration: "30s",
+      animationTimingFunction: "linear",
+      animationIterationCount: "infinite",
     },
-    slideImage: {
-      display: "block",
+    card: {
+      width: "300px",
+      flex: "0 0 auto",
+      border: "4px solid #160608",
+      background: "#f7cfd4",
+      padding: "12px",
+      boxShadow: "6px 6px 0 #e21b3c",
+    },
+    img: {
       width: "100%",
-      height: "420px",
+      height: "220px",
       objectFit: "cover",
       border: "4px solid #160608",
-      background: "#f0b2b6",
-      boxSizing: "border-box",
     },
-    sliderControls: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: "16px",
-      marginTop: "18px",
-      flexWrap: "wrap",
-    },
-    sliderButtonRow: {
-      display: "flex",
-      gap: "12px",
-    },
-    sliderButton: {
-      display: "inline-block",
-      border: "4px solid #160608",
-      background: "#160608",
-      color: "#f7cfd4",
-      padding: "12px 18px",
-      fontSize: "13px",
+    text: {
+      marginTop: "10px",
       fontWeight: 900,
       textTransform: "uppercase",
-      letterSpacing: "0.16em",
-      boxShadow: "5px 5px 0 #e21b3c",
-      cursor: "pointer",
-    },
-    sliderMeta: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "6px",
-    },
-    sliderCount: {
-      margin: 0,
-      fontSize: "12px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.25em",
-    },
-    projectText: {
-      margin: "18px 0 0",
-      fontSize: "20px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.1em",
-    },
-    contact: {
-      padding: "48px 24px",
-      textAlign: "center",
-    },
-    contactText: {
-      maxWidth: "760px",
-      margin: "20px auto 0",
-      fontSize: "20px",
-      lineHeight: 1.8,
-    },
-    contactGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-      gap: "24px",
-      marginTop: "40px",
-    },
-    contactCard: {
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      padding: "24px",
-      boxShadow: "7px 7px 0 #e21b3c",
-    },
-    contactDark: {
-      border: "5px solid #f7cfd4",
-      background: "#160608",
-      color: "#f7cfd4",
-      padding: "24px",
-      boxShadow: "7px 7px 0 #e21b3c",
-    },
-    label: {
-      margin: 0,
-      fontSize: "12px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.3em",
-    },
-    value: {
-      marginTop: "14px",
-      marginBottom: 0,
-      fontSize: "24px",
-      fontWeight: 900,
-      wordBreak: "break-word",
+      fontSize: "18px",
     },
   };
 
   return (
     <div style={styles.page}>
-      <style>{`
-        @media (max-width: 900px) {
-          .services-grid,
-          .about-grid,
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-          }
+      <style jsx global>{`
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
 
       <main style={styles.main}>
         <section style={styles.hero}>
-          <img src="/logo.png" alt="Mad Props Logo" style={styles.logo} />
+          <img src="/logo.png" style={styles.logo} />
 
           <div style={styles.introBox}>
             Custom props, playful scenic fabrication, and bold temporary installs
-            for events, activations, and branded moments.
-          </div>
-
-          <div style={styles.buttonRow}>
-            <a href="#work" style={styles.buttonDark}>See Work</a>
-            <a href="#contact" style={styles.buttonLight}>Contact</a>
           </div>
         </section>
 
-        <section style={styles.strip}>
-          Vintage circus style • handmade builds • big personality
-        </section>
-
-        <section style={styles.section} id="services">
-          <h2 style={styles.heading}>Featured Acts</h2>
-
-          <div className="services-grid" style={styles.grid3}>
-            {services.map((service) => (
-              <div key={service} style={styles.card}>
-                <p style={styles.cardTitle}>{service}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section style={styles.section} id="about">
-          <div className="about-grid" style={styles.aboutGrid}>
-            <div style={styles.aboutCard}>
-              <h2 style={styles.subheading}>About</h2>
-              <p style={styles.body}>
-                Mad Props Event Co creates eye-catching builds for parties,
-                activations, retail moments, public art, and branded experiences.
-                The style is playful, handcrafted, graphic, and a little theatrical.
-              </p>
-            </div>
-
-            <div style={styles.aboutAccent}>
-              <h3 style={styles.subheading}>Built For</h3>
-              <p style={styles.body}>
-                Brand activations, event decor, scenic moments, temporary installs,
-                and custom props with personality.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section style={styles.section} id="work">
+        <section style={styles.section}>
           <h2 style={styles.heading}>Recent Work</h2>
 
-          <div style={styles.sliderWrap}>
-            <div style={styles.sliderStage}>
-              <img
-                src={projectSlides[currentSlide].image}
-                alt={projectSlides[currentSlide].alt}
-                style={styles.slideImage}
-              />
-            </div>
-
-            <div style={styles.sliderControls}>
-              <div style={styles.sliderMeta}>
-                <p style={styles.sliderCount}>
-                  {currentSlide + 1} / {projectSlides.length}
-                </p>
-                <p style={styles.projectText}>{projectSlides[currentSlide].title}</p>
-              </div>
-
-              <div style={styles.sliderButtonRow}>
-                <button type="button" onClick={goPrev} style={styles.sliderButton}>
-                  Prev
-                </button>
-                <button type="button" onClick={goNext} style={styles.sliderButton}>
-                  Next
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section style={styles.contact} id="contact">
-          <h2 style={styles.heading}>Step Right Up</h2>
-          <p style={styles.contactText}>
-            Ready to make something unforgettable? Reach out for custom builds,
-            scenic fabrication, and event installs.
-          </p>
-
-          <div className="contact-grid" style={styles.contactGrid}>
-            <div style={styles.contactCard}>
-              <p style={styles.label}>Email</p>
-              <p style={styles.value}>hello@madpropseventco.com</p>
-            </div>
-            <div style={styles.contactCard}>
-              <p style={styles.label}>Instagram</p>
-              <p style={styles.value}>@madpropseventco</p>
-            </div>
-            <div style={styles.contactDark}>
-              <p style={styles.label}>Based In</p>
-              <p style={styles.value}>Dallas, Texas</p>
+          <div style={styles.galleryWrap}>
+            <div style={styles.galleryTrack}>
+              {[...projects, ...projects].map((p, i) => (
+                <div key={i} style={styles.card}>
+                  <img src={p.image} style={styles.img} />
+                  <div style={styles.text}>{p.title}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -415,4 +133,3 @@ export default function Page() {
     </div>
   );
 }
-
