@@ -600,15 +600,9 @@ export default function Page() {
 
         <section className="poster-hero" style={styles.hero}>
           <div style={{ ...styles.heroTopBand, marginBottom: "24px" }}>
-  Madison Mask Presents
+  Welcome to the Greatest Show 
 </div>
 
-        logoWrap: {
-  position: "relative",
-  display: "inline-block",
-  padding: "0 120px",
-  marginTop: "10px", // 
-},
 
           <div className="poster-logo-wrap" style={styles.logoWrap}>
             <div className="top-ornament" style={styles.topOrnamentLeft}>
