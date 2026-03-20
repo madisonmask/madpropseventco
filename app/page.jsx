@@ -24,7 +24,7 @@ export default function Page() {
     },
   ];
 
-    const styles = {
+  const styles = {
     page: {
       minHeight: "100vh",
       background: "#f0b2b6",
@@ -54,7 +54,7 @@ export default function Page() {
       width: "100%",
       margin: "0 auto 8px",
       transform: "rotate(-1deg)",
-      filter: "drop-shadow(8px 8px 0 #160608)",
+      filter: "drop-shadow(0px 0px 0 #160608)",
     },
     introBox: {
       maxWidth: "760px",
@@ -182,16 +182,19 @@ export default function Page() {
     galleryRail: {
       display: "flex",
       width: "max-content",
-      animation: "scrollGallery 24s linear infinite",
+      gap: "20px",
+      animation: "scrollGallery 26s linear infinite",
+      willChange: "transform",
     },
     galleryTrack: {
       display: "flex",
       gap: "20px",
-      paddingRight: "20px",
+      flex: "0 0 auto",
     },
     galleryCard: {
-      width: "320px",
+      width: "300px",
       flex: "0 0 auto",
+      boxSizing: "border-box",
       border: "4px solid #160608",
       background: "#f7cfd4",
       padding: "14px",
@@ -200,10 +203,11 @@ export default function Page() {
     projectImage: {
       display: "block",
       width: "100%",
-      height: "240px",
+      height: "220px",
       objectFit: "cover",
       border: "4px solid #160608",
       background: "#f0b2b6",
+      boxSizing: "border-box",
     },
     projectText: {
       margin: "18px 0 0",
@@ -262,9 +266,7 @@ export default function Page() {
       <style>{`
         @keyframes scrollGallery {
           from { transform: translateX(0); }
-          to { transform: translateX(-1360px); }
-        }
-          to { transform: translateX(-50%); }
+          to { transform: translateX(calc(-50% - 10px)); }
         }
 
         @media (max-width: 900px) {
@@ -291,9 +293,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section style={styles.strip}>
-          Vintage circus style • handmade builds • big personality
-        </section>
+  
 
         <section style={styles.section} id="services">
           <h2 style={styles.heading}>Featured Acts</h2>
