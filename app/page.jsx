@@ -671,7 +671,7 @@ export default function Page() {
           {headingBlock("About")}
           <div className="about-grid" style={styles.aboutGrid}>
             <div style={styles.aboutCard}>
-              <h3 style={styles.subheading}>The Main Attraction</h3>
+              <h3 style={styles.subheading}>The Ring Leader</h3>
               <div className="poster-about-inline" style={styles.aboutInlineWrap}>
                 <img src="/me.jpg" alt="Madison Mask" style={styles.aboutImage} />
               </div>
