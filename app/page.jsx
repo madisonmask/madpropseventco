@@ -10,6 +10,15 @@ export default function Page() {
     { title: "Year of the Snake", image: "/year-of-the-snake.jpg" },
   ];
 
+  const logos = [
+    { name: "Client One", src: "/logo1.png" },
+    { name: "Client Two", src: "/logo2.png" },
+    { name: "Client Three", src: "/logo3.png" },
+    { name: "Client Four", src: "/logo4.png" },
+    { name: "Client Five", src: "/logo5.png" },
+    { name: "Client Six", src: "/logo6.png" },
+  ];
+
   const styles = {
     page: {
       minHeight: "100vh",
@@ -40,7 +49,7 @@ export default function Page() {
       width: "100%",
       margin: "0 auto 8px",
       transform: "rotate(-1deg)",
-      filter: "drop-shadow(0px 0px 0 #160608)",
+      filter: "drop-shadow(1px 1px 0 #160608)",
     },
     introBox: {
       maxWidth: "760px",
@@ -197,45 +206,29 @@ export default function Page() {
       padding: "48px 24px",
       textAlign: "center",
     },
-    contactText: {
-      maxWidth: "760px",
-      margin: "20px auto 0",
-      fontSize: "20px",
-      lineHeight: 1.8,
-    },
-    contactGrid: {
+    logosGrid: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-      gap: "24px",
+      gridTemplateColumns: "repeat(6, 1fr)",
+      gap: "20px",
       marginTop: "40px",
+      alignItems: "center",
     },
-    contactCard: {
-      border: "5px solid #160608",
+    logoItem: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "12px",
       background: "#f7cfd4",
-      padding: "24px",
-      boxShadow: "7px 7px 0 #e21b3c",
+      border: "3px solid #160608",
     },
-    contactDark: {
-      border: "5px solid #f7cfd4",
-      background: "#160608",
-      color: "#f7cfd4",
-      padding: "24px",
-      boxShadow: "7px 7px 0 #e21b3c",
-    },
-    label: {
-      margin: 0,
-      fontSize: "12px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.3em",
+    logoImg: {
+      maxWidth: "100%",
+      maxHeight: "60px",
+      objectFit: "contain",
+      filter: "grayscale(100%)",
+      opacity: 0.85,
     },
     value: {
-      marginTop: "14px",
-      marginBottom: 0,
-      fontSize: "24px",
-      fontWeight: 900,
-      wordBreak: "break-word",
-    },
   };
 
   return (
@@ -322,6 +315,18 @@ export default function Page() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section style={styles.section}>
+          <h2 style={styles.heading}>Clients & Collaborators</h2>
+
+          <div style={styles.logosGrid}>
+            {logos.map((logo) => (
+              <div key={logo.name} style={styles.logoItem}>
+                <img src={logo.src} alt={logo.name} style={styles.logoImg} />
+              </div>
+            ))}
           </div>
         </section>
 
