@@ -19,7 +19,7 @@ export default function Page() {
     { name: "Client Six", src: "/logo6.png" },
   ];
 
-  
+  const LIGHT_BLUE = "#7dd3fc";
 
   const styles = {
     page: {
