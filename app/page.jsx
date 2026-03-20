@@ -4,12 +4,12 @@ export default function Page() {
   const projects = [
     {
       title: "Grateful Community Wall",
-      image: "public/grateful-wall.jpg",
+      image: "/grateful-wall.jpg",
       alt: "Interactive grateful community wall installation",
     },
     {
       title: "You Are Here Marker",
-      image: "public/you-are-here.jpg",
+      image: "/you-are-here.jpg",
       alt: "Large red map pin sculpture installation",
     },
     {
