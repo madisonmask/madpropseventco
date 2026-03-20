@@ -1,4 +1,39 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Page() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const projectSlides = [
+    {
+      title: "Grateful Community Wall",
+      image: "/grateful-wall.jpg",
+      alt: "Interactive grateful community wall installation",
+    },
+    {
+      title: "You Are Here Marker",
+      image: "/you-are-here.jpg",
+      alt: "Large red map pin sculpture installation",
+    },
+    {
+      title: "St. Patrick's Day Bench",
+      image: "/st-patricks-bench.jpg",
+      alt: "Green St. Patrick's Day bench photo op installation",
+    },
+    {
+      title: "Year of the Snake",
+      image: "/year-of-the-snake.jpg",
+      alt: "Large snake sculpture event installation",
+    },
+  ];
+
+  const goPrev = () => {
+    setCurrentSlide((prev) => (prev === 0 ? projectSlides.length - 1 : prev - 1));
+  };
+
+  const goNext = () => {
+    setCurrentSlide((prev) => (prev === projectSlides.length - 1 ? 0 : prev + 1));
+  };
   const services = ["Custom props", "Scenic fabrication", "Event installs"];
 
   const styles = {
@@ -148,38 +183,63 @@ export default function Page() {
       fontSize: "20px",
       lineHeight: 1.8,
     },
-    galleryViewport: {
-      overflow: "hidden",
+    sliderWrap: {
       marginTop: "40px",
       border: "5px solid #160608",
       background: "#f7cfd4",
       boxShadow: "8px 8px 0 #e21b3c",
       padding: "20px",
     },
-    galleryRail: {
-      display: "flex",
-      gap: "20px",
-      width: "max-content",
-      animation: "scrollGallery 22s linear infinite",
-      willChange: "transform",
-    },
-    galleryCard: {
-      width: "300px",
-      flex: "0 0 auto",
-      boxSizing: "border-box",
+    sliderStage: {
       border: "4px solid #160608",
-      background: "#f7cfd4",
+      background: "#f0b2b6",
       padding: "14px",
-      boxShadow: "6px 6px 0 #e21b3c",
     },
-    projectImage: {
+    slideImage: {
       display: "block",
       width: "100%",
-      height: "220px",
+      height: "420px",
       objectFit: "cover",
       border: "4px solid #160608",
       background: "#f0b2b6",
       boxSizing: "border-box",
+    },
+    sliderControls: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: "16px",
+      marginTop: "18px",
+      flexWrap: "wrap",
+    },
+    sliderButtonRow: {
+      display: "flex",
+      gap: "12px",
+    },
+    sliderButton: {
+      display: "inline-block",
+      border: "4px solid #160608",
+      background: "#160608",
+      color: "#f7cfd4",
+      padding: "12px 18px",
+      fontSize: "13px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.16em",
+      boxShadow: "5px 5px 0 #e21b3c",
+      cursor: "pointer",
+    },
+    sliderMeta: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+    },
+    sliderCount: {
+      margin: 0,
+      fontSize: "12px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      letterSpacing: "0.25em",
     },
     projectText: {
       margin: "18px 0 0",
@@ -236,11 +296,6 @@ export default function Page() {
   return (
     <div style={styles.page}>
       <style>{`
-        @keyframes scrollGallery {
-          from { transform: translateX(0); }
-          to { transform: translateX(-2560px); }
-        }
-
         @media (max-width: 900px) {
           .services-grid,
           .about-grid,
@@ -265,6 +320,9 @@ export default function Page() {
           </div>
         </section>
 
+        <section style={styles.strip}>
+          Vintage circus style • handmade builds • big personality
+        </section>
 
         <section style={styles.section} id="services">
           <h2 style={styles.heading}>Featured Acts</h2>
@@ -302,39 +360,30 @@ export default function Page() {
         <section style={styles.section} id="work">
           <h2 style={styles.heading}>Recent Work</h2>
 
-          <div style={styles.galleryViewport}>
-            <div style={styles.galleryRail}>
-              <div style={styles.galleryCard}>
-                <img src="/grateful-wall.jpg" alt="Interactive grateful community wall installation" style={styles.projectImage} />
-                <p style={styles.projectText}>Grateful Community Wall</p>
+          <div style={styles.sliderWrap}>
+            <div style={styles.sliderStage}>
+              <img
+                src={projectSlides[currentSlide].image}
+                alt={projectSlides[currentSlide].alt}
+                style={styles.slideImage}
+              />
+            </div>
+
+            <div style={styles.sliderControls}>
+              <div style={styles.sliderMeta}>
+                <p style={styles.sliderCount}>
+                  {currentSlide + 1} / {projectSlides.length}
+                </p>
+                <p style={styles.projectText}>{projectSlides[currentSlide].title}</p>
               </div>
-              <div style={styles.galleryCard}>
-                <img src="/you-are-here.jpg" alt="Large red map pin sculpture installation" style={styles.projectImage} />
-                <p style={styles.projectText}>You Are Here Marker</p>
-              </div>
-              <div style={styles.galleryCard}>
-                <img src="/st-patricks-bench.jpg" alt="Green St. Patrick's Day bench photo op installation" style={styles.projectImage} />
-                <p style={styles.projectText}>St. Patrick's Day Bench</p>
-              </div>
-              <div style={styles.galleryCard}>
-                <img src="/year-of-the-snake.jpg" alt="Large snake sculpture event installation" style={styles.projectImage} />
-                <p style={styles.projectText}>Year of the Snake</p>
-              </div>
-              <div style={styles.galleryCard} aria-hidden="true">
-                <img src="/grateful-wall.jpg" alt="" style={styles.projectImage} />
-                <p style={styles.projectText}>Grateful Community Wall</p>
-              </div>
-              <div style={styles.galleryCard} aria-hidden="true">
-                <img src="/you-are-here.jpg" alt="" style={styles.projectImage} />
-                <p style={styles.projectText}>You Are Here Marker</p>
-              </div>
-              <div style={styles.galleryCard} aria-hidden="true">
-                <img src="/st-patricks-bench.jpg" alt="" style={styles.projectImage} />
-                <p style={styles.projectText}>St. Patrick's Day Bench</p>
-              </div>
-              <div style={styles.galleryCard} aria-hidden="true">
-                <img src="/year-of-the-snake.jpg" alt="" style={styles.projectImage} />
-                <p style={styles.projectText}>Year of the Snake</p>
+
+              <div style={styles.sliderButtonRow}>
+                <button type="button" onClick={goPrev} style={styles.sliderButton}>
+                  Prev
+                </button>
+                <button type="button" onClick={goNext} style={styles.sliderButton}>
+                  Next
+                </button>
               </div>
             </div>
           </div>
