@@ -1,29 +1,6 @@
 export default function Page() {
   const services = ["Custom props", "Scenic fabrication", "Event installs"];
 
-  const projects = [
-    {
-      title: "Grateful Community Wall",
-      image: "/grateful-wall.jpg",
-      alt: "Interactive grateful community wall installation",
-    },
-    {
-      title: "You Are Here Marker",
-      image: "/you-are-here.jpg",
-      alt: "Large red map pin sculpture installation",
-    },
-    {
-      title: "St. Patrick's Day Bench",
-      image: "/st-patricks-bench.jpg",
-      alt: "Green St. Patrick's Day bench photo op installation",
-    },
-    {
-      title: "Year of the Snake",
-      image: "/year-of-the-snake.jpg",
-      alt: "Large snake sculpture event installation",
-    },
-  ];
-
   const styles = {
     page: {
       minHeight: "100vh",
@@ -181,15 +158,10 @@ export default function Page() {
     },
     galleryRail: {
       display: "flex",
+      gap: "20px",
       width: "max-content",
-      gap: "20px",
-      animation: "scrollGallery 26s linear infinite",
+      animation: "scrollGallery 22s linear infinite",
       willChange: "transform",
-    },
-    galleryTrack: {
-      display: "flex",
-      gap: "20px",
-      flex: "0 0 auto",
     },
     galleryCard: {
       width: "300px",
@@ -211,10 +183,10 @@ export default function Page() {
     },
     projectText: {
       margin: "18px 0 0",
-      fontSize: "22px",
+      fontSize: "20px",
       fontWeight: 900,
       textTransform: "uppercase",
-      letterSpacing: "0.12em",
+      letterSpacing: "0.1em",
     },
     contact: {
       padding: "48px 24px",
@@ -266,7 +238,7 @@ export default function Page() {
       <style>{`
         @keyframes scrollGallery {
           from { transform: translateX(0); }
-          to { transform: translateX(calc(-50% - 10px)); }
+          to { transform: translateX(-2560px); }
         }
 
         @media (max-width: 900px) {
@@ -293,7 +265,6 @@ export default function Page() {
           </div>
         </section>
 
-  
 
         <section style={styles.section} id="services">
           <h2 style={styles.heading}>Featured Acts</h2>
@@ -333,22 +304,37 @@ export default function Page() {
 
           <div style={styles.galleryViewport}>
             <div style={styles.galleryRail}>
-              <div style={styles.galleryTrack}>
-                {projects.map((project) => (
-                  <div key={project.title} style={styles.galleryCard}>
-                    <img src={project.image} alt={project.alt} style={styles.projectImage} />
-                    <p style={styles.projectText}>{project.title}</p>
-                  </div>
-                ))}
+              <div style={styles.galleryCard}>
+                <img src="/grateful-wall.jpg" alt="Interactive grateful community wall installation" style={styles.projectImage} />
+                <p style={styles.projectText}>Grateful Community Wall</p>
               </div>
-
-              <div style={styles.galleryTrack} aria-hidden="true">
-                {projects.map((project) => (
-                  <div key={`${project.title}-repeat`} style={styles.galleryCard}>
-                    <img src={project.image} alt="" style={styles.projectImage} />
-                    <p style={styles.projectText}>{project.title}</p>
-                  </div>
-                ))}
+              <div style={styles.galleryCard}>
+                <img src="/you-are-here.jpg" alt="Large red map pin sculpture installation" style={styles.projectImage} />
+                <p style={styles.projectText}>You Are Here Marker</p>
+              </div>
+              <div style={styles.galleryCard}>
+                <img src="/st-patricks-bench.jpg" alt="Green St. Patrick's Day bench photo op installation" style={styles.projectImage} />
+                <p style={styles.projectText}>St. Patrick's Day Bench</p>
+              </div>
+              <div style={styles.galleryCard}>
+                <img src="/year-of-the-snake.jpg" alt="Large snake sculpture event installation" style={styles.projectImage} />
+                <p style={styles.projectText}>Year of the Snake</p>
+              </div>
+              <div style={styles.galleryCard} aria-hidden="true">
+                <img src="/grateful-wall.jpg" alt="" style={styles.projectImage} />
+                <p style={styles.projectText}>Grateful Community Wall</p>
+              </div>
+              <div style={styles.galleryCard} aria-hidden="true">
+                <img src="/you-are-here.jpg" alt="" style={styles.projectImage} />
+                <p style={styles.projectText}>You Are Here Marker</p>
+              </div>
+              <div style={styles.galleryCard} aria-hidden="true">
+                <img src="/st-patricks-bench.jpg" alt="" style={styles.projectImage} />
+                <p style={styles.projectText}>St. Patrick's Day Bench</p>
+              </div>
+              <div style={styles.galleryCard} aria-hidden="true">
+                <img src="/year-of-the-snake.jpg" alt="" style={styles.projectImage} />
+                <p style={styles.projectText}>Year of the Snake</p>
               </div>
             </div>
           </div>
@@ -380,3 +366,4 @@ export default function Page() {
     </div>
   );
 }
+
