@@ -124,7 +124,7 @@ export default function Page() {
     ribbon: {
       display: "inline-block",
       padding: "12px 28px",
-      background: "#e21b3c",
+      background: "#7dd3fc",
       color: "#fff5f6",
       border: "4px solid #160608",
       fontSize: "13px",
@@ -578,7 +578,7 @@ export default function Page() {
             <circle cx="70" cy="476" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
             <circle cx="70" cy="704" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
 <path d="M70 860 l-20 -28 h40 z" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
-            <path d="M70 860 l-20 -28 h40 z" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
+            <path d="M70 860 l-20 -28 h40 z" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
           </svg>
         </div>
 
@@ -591,11 +591,11 @@ export default function Page() {
             <path d="M70 340 C122 340, 126 378, 92 406 C122 432, 122 478, 70 486" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
             <path d="M70 600 C18 600, 14 638, 48 666 C18 692, 18 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
             <path d="M70 600 C122 600, 126 638, 92 666 C122 692, 122 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <circle cx="70" cy="20" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="248" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="476" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="704" r="12" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-            <path d="M70 860 l-20 -28 h40 z" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="20" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="248" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="476" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
+            <circle cx="70" cy="704" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
+            <path d="M70 860 l-20 -28 h40 z" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
           </svg>
         </div>
 
