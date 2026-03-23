@@ -599,10 +599,6 @@ export default function Page() {
           </svg>
         </div>
 
-        <section className="poster-hero" style={styles.hero}>
-          <div style={{ ...styles.heroTopBand, marginBottom: "24px" }}>
-  Welcome to the Greatest Show 
-</div>
 
 
           <div className="poster-logo-wrap" style={styles.logoWrap}>
