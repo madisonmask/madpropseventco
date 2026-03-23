@@ -94,7 +94,7 @@ export default function Page() {
       width: "100%",
       margin: "0 auto 8px",
       transform: "rotate(-1deg)",
-      filter: "drop-shadow(2px 2px 0 #160608)",
+      filter: "drop-shadow(0px 0px 0 #160608)",
       position: "relative",
       zIndex: 5,
     },
