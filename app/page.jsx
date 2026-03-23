@@ -90,7 +90,7 @@ export default function Page() {
     },
     logo: {
       display: "block",
-      maxWidth: "560px",
+      maxWidth: "400px",
       width: "100%",
       margin: "0 auto 8px",
       transform: "rotate(-1deg)",
