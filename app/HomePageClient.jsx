@@ -681,12 +681,16 @@ export default function HomePageClient() {
             </div>
           </div>
 
-      <h1 style={{
-  fontSize: "32px",
-  textAlign: "center",
-  marginTop: "20px",
-  fontWeight: 900,
-  textTransform: "uppercase"
+     <h1 style={{
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  padding: 0,
+  margin: "-1px",
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  border: 0
 }}>
   Custom Event Props, Photo Backdrops & Scenic Fabrication in Dallas
 </h1>
