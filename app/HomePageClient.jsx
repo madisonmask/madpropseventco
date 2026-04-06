@@ -2,9 +2,9 @@
 
 export default function HomePageClient() {
   const services = [
-    "Custom event props",
-    "Scenic fabrication",
-    "Branded installs",
+    "Custom event props in Dallas",
+    "Scenic fabrication for Events",
+    "Photo Backdrops & Branded Installations",
   ];
 
   const projects = [
