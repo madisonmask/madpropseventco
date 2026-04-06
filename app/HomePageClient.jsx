@@ -681,9 +681,15 @@ export default function HomePageClient() {
             </div>
           </div>
 
-          <h1 style={{ fontSize: "0px", lineHeight: 0, margin: 0 }}>
-            Custom Event Props, Photo Backdrops, and Scenic Fabrication in Dallas
-          </h1>
+      <h1 style={{
+  fontSize: "32px",
+  textAlign: "center",
+  marginTop: "20px",
+  fontWeight: 900,
+  textTransform: "uppercase"
+}}>
+  Custom Event Props, Photo Backdrops & Scenic Fabrication in Dallas
+</h1>
 
           <div className="poster-intro" style={styles.introBox}>
             Mad Props Event Co creates custom event props, scenic fabrication, photo backdrops, and
