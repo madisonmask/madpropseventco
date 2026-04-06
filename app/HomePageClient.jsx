@@ -864,6 +864,9 @@ export default function HomePageClient() {
         </section>
       </main>
     </div>
+    <a href="/event-photo-backdrop-dallas">Event Photo Backdrops</a>
+<a href="/custom-event-props-dallas">Custom Event Props</a>
+<a href="/scenic-fabrication-dallas">Scenic Fabrication</a>
   );
 }
 
