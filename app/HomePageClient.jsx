@@ -145,11 +145,13 @@ export default function HomePageClient() {
       boxShadow: "6px 6px 0 #e21b3c",
     },
     logoWrap: {
-      position: "relative",
-      display: "inline-block",
-      padding: "0 120px",
-      marginTop: "6px",
-    },
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: "6px",
+  width: "100%",
+},
     logo: {
       display: "block",
       maxWidth: "400px",
