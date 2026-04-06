@@ -2,9 +2,9 @@
 
 export default function HomePageClient() {
   const services = [
-    "Custom event props in Dallas",
-    "Scenic fabrication for events",
-    "Photo backdrops and branded installs",
+    "Custom event props",
+    "Scenic fabrication",
+    "Branded installs",
   ];
 
   const projects = [
@@ -692,7 +692,7 @@ export default function HomePageClient() {
           </div>
 
           <div style={styles.buttonRow}>
-            <a href="#work" style={styles.buttonDark}>See Event Installations</a>
+            <a href="#work" style={styles.buttonDark}>See Work</a>
             <a href="#contact" style={styles.buttonLight}>Contact Mad Props</a>
           </div>
         </header>
