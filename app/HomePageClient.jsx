@@ -8,28 +8,35 @@ export default function HomePageClient() {
   ];
 
   const projects = [
-    {
-      title: "Grateful Community Wall",
-      image: "/grateful-wall.jpg",
-      alt: "Custom community event wall installation in Dallas by Mad Props Event Co",
-    },
-    {
-      title: "You Are Here Marker",
-      image: "/you-are-here.jpg",
-      alt: "Interactive public art marker and event installation in Dallas-Fort Worth",
-    },
-    {
-      title: "St. Patrick's Day Bench",
-      image: "/st-patricks-bench.jpg",
-      alt: "St. Patrick's Day photo backdrop and seasonal event installation in Dallas",
-    },
-    {
-      title: "Year of the Snake",
-      image: "/year-of-the-snake.jpg",
-      alt: "Custom themed event prop and scenic fabrication piece in Dallas",
-    },
-  ];
-
+  {
+    title: "Grateful Community Wall",
+    image: "/grateful-wall.jpg",
+    alt: "Custom community event wall installation in Dallas by Mad Props Event Co",
+    seoText:
+      "Custom event installation in Dallas designed as an interactive community wall and photo backdrop for public events, brand activations, and shareable experiences.",
+  },
+  {
+    title: "You Are Here Marker",
+    image: "/you-are-here.jpg",
+    alt: "Interactive public art marker and event installation in Dallas-Fort Worth",
+    seoText:
+      "Large-scale scenic fabrication and public event installation in Dallas-Fort Worth created as a visual landmark, wayfinding moment, and interactive photo opportunity.",
+  },
+  {
+    title: "St. Patrick's Day Bench",
+    image: "/st-patricks-bench.jpg",
+    alt: "St. Patrick's Day photo backdrop and seasonal event installation in Dallas",
+    seoText:
+      "Seasonal St. Patrick's Day event backdrop in Dallas built for community programming, holiday activations, and social-media-friendly photo moments.",
+  },
+  {
+    title: "Year of the Snake",
+    image: "/year-of-the-snake.jpg",
+    alt: "Custom themed event prop and scenic fabrication piece in Dallas",
+    seoText:
+      "Custom themed scenic fabrication piece for a temporary event installation in Dallas, designed for branded environments, festivals, and immersive event decor.",
+  },
+];
   const logos = [
     { name: "Client One", src: "/logo1.png" },
     { name: "Client Two", src: "/logo2.png" },
@@ -714,21 +721,20 @@ export default function HomePageClient() {
           </div>
         </header>
 
-        <section className="poster-section" style={styles.section} id="services" aria-labelledby="services-heading">
-          {headingBlock("Featured Acts")}
-          <p style={styles.sectionIntro}>
-            We design and build custom event props in Dallas, scenic fabrication for branded moments,
-            large photo backdrops, and temporary installations that make festivals, corporate events,
-            and private parties feel bigger, more interactive, and more memorable.
-          </p>
-          <div className="services-grid" style={styles.grid3}>
-            {services.map((s) => (
-              <div key={s} style={styles.serviceCard}>
-                <p style={styles.cardTitle}>{s}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+    <section className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
+  {headingBlock("Recent Work")}
+  <div style={styles.galleryWrap}>
+    <div className="moving-gallery-track" style={styles.galleryTrack}>
+      {[...projects, ...projects].map((p, i) => (
+        <figure key={i} style={styles.card}>
+          <img src={p.image} alt={p.alt} style={styles.img} loading="lazy" />
+          <figcaption style={styles.text}>{p.title}</figcaption>
+          <p style={styles.srOnly}>{p.seoText}</p>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
 
         <section className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
           {headingBlock("Recent Work")}
