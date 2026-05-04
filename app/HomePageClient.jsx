@@ -732,20 +732,7 @@ export default function HomePageClient() {
           </div>
         </header>
 
-    <section className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
-  {headingBlock("Recent Work")}
-  <div style={styles.galleryWrap}>
-    <div className="moving-gallery-track" style={styles.galleryTrack}>
-      {[...projects, ...projects].map((p, i) => (
-        <figure key={i} style={styles.card}>
-          <img src={p.image} alt={p.alt} style={styles.img} loading="lazy" />
-          <figcaption style={styles.text}>{p.title}</figcaption>
-          <p style={styles.srOnly}>{p.seoText}</p>
-        </figure>
-      ))}
-    </div>
-  </div>
-</section>
+
 
         <section className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
           {headingBlock("Recent Work")}
