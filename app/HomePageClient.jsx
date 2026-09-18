@@ -20,6 +20,11 @@ export default function HomePageClient() {
 
   const projects = [
   {
+  title: "Fan Expo Toy Box",
+  image: "/fan-expo-toy-box.jpg",
+  alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas"
+},
+    {
     title: "Grateful Community Wall",
     image: "/grateful-wall.jpg",
     alt: "Custom community event wall installation in Dallas by Mad Props Event Co",
