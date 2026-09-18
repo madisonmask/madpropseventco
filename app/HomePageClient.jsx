@@ -11,6 +11,11 @@ const projects = [
     alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas",
   },
   {
+  title: "Downtown Dallas Flower Box Installation",
+  image: "/flowerbox.png",
+  alt: "Bright green planter boxes with oversized colorful flowers and red Pegasus accents outside a downtown Dallas building",
+},
+  {
     title: "Bungalow 60 Branded Entry Arch",
     image: "/archway.jpg",
     alt: "Custom pink Bungalow 60 entrance arch with matching planter boxes",
