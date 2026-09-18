@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 import HomePageClient from "./HomePageClient";
 
 export const metadata = {
