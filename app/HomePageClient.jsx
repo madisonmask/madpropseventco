@@ -222,7 +222,22 @@ export default function HomePageClient() {
             photo-worthy props created for public activations, seasonal
             events, and branded experiences in Dallas and across DFW.
           </p>
+<div className="gallery-help" id="gallery-help">
+  <span className="gallery-help-title">
+    MORE TO SEE — EXPLORE THE GALLERY
+  </span>
 
+  <span className="gallery-help-directions">
+    <span aria-hidden="true">←</span>
+    Click and hold, then drag left or right
+    <span aria-hidden="true">→</span>
+  </span>
+
+  <small>
+    On your phone? Swipe through the photos.
+    Keyboard: select the gallery and use ← →.
+  </small>
+</div>
           <div
             id="project-gallery"
             className={`gallery-shell${dragging ? " dragging" : ""}`}
@@ -260,10 +275,7 @@ export default function HomePageClient() {
             </div>
           </div>
 
-          <p className="gallery-help" id="gallery-help">
-            Drag or swipe to explore. Use left and right arrow keys
-            when the gallery is selected.
-          </p>
+       
         </section>
 
         {/* ABOUT */}
@@ -678,11 +690,47 @@ export default function HomePageClient() {
         }
 
         #madprops-site .gallery-help {
-          margin: 22px 0 0;
-          font-size: 13px;
-          line-height: 1.5;
-          text-align: center;
-        }
+  margin: 0 0 28px;
+  padding: 18px 22px;
+  border: 4px solid var(--ink);
+  background: var(--blue);
+  box-shadow: 6px 6px 0 var(--ink);
+  color: var(--ink);
+  text-align: center;
+}
+
+#madprops-site .gallery-help-title {
+  display: block;
+  margin-bottom: 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 2.5vw, 25px);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+}
+
+#madprops-site .gallery-help-directions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: clamp(16px, 2vw, 21px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+#madprops-site .gallery-help-directions > span {
+  flex-shrink: 0;
+  font-size: 34px;
+  line-height: 1;
+}
+
+#madprops-site .gallery-help small {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
         #madprops-site .bio-layout {
           display: grid;
