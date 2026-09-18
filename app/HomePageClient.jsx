@@ -193,39 +193,7 @@ export default function HomePageClient() {
           </p>
         </header>
 
-        {/* SERVICES */}
-        <section
-          className="section cream"
-          aria-label="Custom fabrication services"
-        >
-          <div className="circus-divider" aria-hidden="true">
-            ❧ ━ ★ ━ ❧
-          </div>
-
-          <div className="services">
-            <div className="service">
-              <span className="service-star" aria-hidden="true">
-                ★
-              </span>
-              Custom Event Props
-            </div>
-
-            <div className="service">
-              <span className="service-star" aria-hidden="true">
-                ✦
-              </span>
-              Scenic Fabrication
-            </div>
-
-            <div className="service">
-              <span className="service-star" aria-hidden="true">
-                ★
-              </span>
-              Photo Backdrops &amp; Branded Installs
-            </div>
-          </div>
-        </section>
-
+       
         {/* RECENT WORK */}
         <section
           className="section work-section"
