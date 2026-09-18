@@ -294,8 +294,7 @@ export default function HomePageClient() {
           aria-labelledby="about-heading"
         >
           
-            ❧ ━ ★ ━ ❧
-          </div>
+           
 
           <h2 className="banner" id="about-heading">
             About
@@ -368,8 +367,7 @@ export default function HomePageClient() {
           aria-labelledby="clients-heading"
         >
       
-            ❧ ━ ★ ━ ❧
-          </div>
+           
 
           <h2 className="banner" id="clients-heading">
             Clients &amp; Collaborators
@@ -403,8 +401,7 @@ export default function HomePageClient() {
           aria-labelledby="contact-heading"
         >
         
-            ❧ ━ ★ ━ ❧
-          </div>
+          
 
           <h2 id="contact-heading">Step Right Up</h2>
 
