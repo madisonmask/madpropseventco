@@ -2,938 +2,955 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function HomePageClient() {
-  const galleryRef = useRef(null);
-  const [galleryStarted, setGalleryStarted] = useState(false);
+// Gallery settings
+const START_DELAY_MS = 3000;
+const PIXELS_PER_SECOND = 25; // Lower this for slower movement.
 
-useEffect(() => {
-  let startTimer;
-
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        startTimer = setTimeout(() => {
-          setGalleryStarted(true);
-        }, 2000);
-
-        observer.disconnect();
-      }
-    },
-    { threshold: 0.25 }
-  );
-
-  if (galleryRef.current) {
-    observer.observe(galleryRef.current);
-  }
-
-  return () => {
-    observer.disconnect();
-    clearTimeout(startTimer);
-  };
-}, []);
-
-  const services = [
-    "Custom event props in Dallas",
-    "Scenic fabrication for Events",
-    "Photo Backdrops & Branded Installations",
-  ];
-
-  const projects = [
-
-    {
-  title: "Fan Expo Toy Box",
-  image: "/fan-expo-toy-box.jpg",
-  alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas"
-},
-    {
-  title: "Bungalow 60 Branded Entry Arch",
-  image: "/archway.jpg",
-  alt: "Custom pink Bungalow 60 event entrance arch with matching planter boxes and tropical greenery"
-},
-      {
-  title: "America 250 Birthday Cake Photo Op",
-  image: "/fourthofjulycake.jpg",
-  alt: "Giant red, white and blue birthday cake photo opportunity celebrating America’s 250th anniversary"
-},
-   {  
-  title: "Texas Silent Disco Installation",
-  image: "/silentdiscotexas.png",
-  alt: "Interactive Texas-shaped silent disco installation with headphones and a spinning record"
-},
-{
-  title: "Downtown Dallas Arts Installation",
-  image: "/downtowndallasarts.png",
-  alt: "Custom public art installation created for Downtown Dallas"
-},
-{
-  title: "Dallas College Fashion Show",
-  image: "/caedletters.png",
-  alt: "Large custom-built CAED display letters for an event installation"
-},
-    {
+const projects = [
+  {
+    title: "Fan Expo Toy Box",
+    image: "/fan-expo-toy-box.jpg",
+    alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas",
+  },
+  {
+    title: "Bungalow 60 Branded Entry Arch",
+    image: "/archway.jpg",
+    alt: "Custom pink Bungalow 60 entrance arch with matching planter boxes",
+  },
+  {
+    title: "America 250 Birthday Cake",
+    image: "/fourthofjulycake.jpg",
+    alt: "Giant red, white and blue birthday cake celebrating America's 250th anniversary",
+  },
+  {
+    title: "Texas Silent Disco Installation",
+    image: "/silentdiscotexas.png",
+    alt: "Texas-shaped silent disco installation with headphones and a record",
+  },
+  {
+    title: "Downtown Dallas Arts Installation",
+    image: "/downtowndallasarts.png",
+    alt: "Custom public art installation created for Downtown Dallas",
+  },
+  {
+    title: "Dallas College Fashion Show",
+    image: "/caedletters.png",
+    alt: "Large custom-built CAED display letters",
+  },
+  {
     title: "Grateful Community Wall",
     image: "/grateful-wall.jpg",
-    alt: "Custom community event wall installation in Dallas by Mad Props Event Co",
-    seoText:
-      "Custom event installation in Dallas designed as an interactive community wall and photo backdrop for public events, brand activations, and shareable experiences.",
+    alt: "Interactive community wall and event photo backdrop in Dallas",
   },
   {
     title: "You Are Here Marker",
     image: "/you-are-here.jpg",
-    alt: "Interactive public art marker and event installation in Dallas-Fort Worth",
-    seoText:
-      "Large-scale scenic fabrication and public event installation in Dallas-Fort Worth created as a visual landmark, wayfinding moment, and interactive photo opportunity.",
+    alt: "Large public art marker and photo opportunity in Dallas",
   },
   {
     title: "St. Patrick's Day Bench",
     image: "/st-patricks-bench.jpg",
-    alt: "St. Patrick's Day photo backdrop and seasonal event installation in Dallas",
-    seoText:
-      "Seasonal St. Patrick's Day event backdrop in Dallas built for community programming, holiday activations, and social-media-friendly photo moments.",
+    alt: "St. Patrick's Day bench and seasonal event photo opportunity",
   },
   {
     title: "Year of the Snake",
     image: "/year-of-the-snake.jpg",
-    alt: "Custom themed event prop and scenic fabrication piece in Dallas",
-    seoText:
-      "Custom themed scenic fabrication piece for a temporary event installation in Dallas, designed for branded environments, festivals, and immersive event decor.",
+    alt: "Custom Year of the Snake themed event installation",
   },
 ];
-  const logos = [
-    { name: "Client One", src: "/logo1.png" },
-    { name: "Client Two", src: "/logo2.png" },
-    { name: "Client Three", src: "/logo3.png" },
-    { name: "Client Four", src: "/logo4.png" },
-    { name: "Client Five", src: "/logo5.png" },
-    { name: "Client Six", src: "/logo6.png" },
-  ];
 
-  const LIGHT_BLUE = "#7dd3fc";
+const clientLogos = [
+  "/logo1.png",
+  "/logo2.png",
+  "/logo3.png",
+  "/logo4.png",
+  "/logo5.png",
+  "/logo6.png",
+];
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Mad Props Event Co",
-    image: "https://www.madpropsevent.co/og-image.jpg",
-    url: "https://www.madpropsevent.co/",
-    email: "madison@madpropsevent.co",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Dallas",
-      addressRegion: "TX",
-      addressCountry: "US",
-    },
-    areaServed: [
-      "Dallas, TX",
-      "Fort Worth, TX",
-      "Plano, TX",
-      "Frisco, TX",
-      "Arlington, TX",
-      "DFW",
-    ],
-    description:
-      "Mad Props Event Co designs and builds custom event props, photo backdrops, scenic fabrication, and temporary installations for events in Dallas-Fort Worth.",
-    sameAs: ["https://instagram.com/madpropseventco"],
-    services: [
-      "Custom event props",
-      "Scenic fabrication",
-      "Photo backdrops",
-      "Event installations",
-      "Festival props",
-      "Branded activations",
-    ],
-  };
+export default function HomePageClient() {
+  const galleryRef = useRef(null);
 
-  const styles = {
-    page: {
-      minHeight: "100vh",
-      background: "#f0b2b6",
-      padding: "32px 16px",
-      color: "#160608",
-      fontFamily: "Arial, Helvetica, sans-serif",
-      position: "relative",
-      overflowX: "hidden",
-    },
-    skipLink: {
-      position: "absolute",
-      left: "-9999px",
-      top: "auto",
-      width: "1px",
-      height: "1px",
-      overflow: "hidden",
-    },
-    main: {
-      maxWidth: "1300px",
-      margin: "0 auto",
-      border: "10px solid #160608",
-      background: "#f0b2b6",
-      boxShadow: "20px 20px 0 #e21b3c",
-      position: "relative",
-      zIndex: 2,
-      overflow: "hidden",
-    },
-    posterBorder: {
-      position: "absolute",
-      inset: "12px",
-      border: "3px solid #160608",
-      pointerEvents: "none",
-      zIndex: 1,
-    },
-    posterBorderInner: {
-      position: "absolute",
-      inset: "24px",
-      border: "2px solid #160608",
-      pointerEvents: "none",
-      zIndex: 1,
-      opacity: 0.75,
-    },
-    section: {
-      padding: "30px 100px 46px",
-      borderBottom: "8px solid #160608",
-      position: "relative",
-      zIndex: 4,
-    },
-  hero: {
-  textAlign: "center",
-  padding: "24px 60px 40px",
-  borderBottom: "8px solid #160608",
-  position: "relative",
-  zIndex: 4,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-},
-   heroTopBand: {
-  display: "inline-block",
-  marginBottom: "20px",
-  padding: "10px 18px",
-  border: "4px solid #160608",
-  background: "#160608",
-  color: "#f7cfd4",
-  fontSize: "12px",
-  fontWeight: 900,
-  textTransform: "uppercase",
-  letterSpacing: "0.34em",
-  boxShadow: "6px 6px 0 #e21b3c",
-},
-    logoWrap: {
-  position: "relative",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  maxWidth: "760px",
-  margin: "0 auto",
-  padding: 0,
-},
-    logo: {
-  display: "block",
-  maxWidth: "620px",
-  width: "100%",
-  margin: "0 auto",
-  transform: "none",
-  position: "relative",
-  zIndex: 5,
-},
-    topOrnamentLeft: {
-      position: "absolute",
-      left: "-4px",
-      top: "-6px",
-      width: "120px",
-      zIndex: 3,
-      pointerEvents: "none",
-    },
-    topOrnamentRight: {
-      position: "absolute",
-      right: "-4px",
-      top: "-6px",
-      width: "120px",
-      zIndex: 3,
-      pointerEvents: "none",
-      transform: "scaleX(-1)",
-    },
-   ribbonWrap: {
-  display: "flex",
-  justifyContent: "center",
-  marginTop: "18px",
-  marginBottom: "18px",
-  width: "100%",
-},
- ribbon: {
-  display: "inline-block",
-  maxWidth: "1100px",
-  width: "100%",
-  padding: "14px 24px",
-  background: "#7dd3fc",
-  color: "#fff5f6",
-  border: "4px solid #160608",
-  fontSize: "13px",
-  fontWeight: 900,
-  textTransform: "uppercase",
-  letterSpacing: "0.24em",
-  boxShadow: "7px 7px 0 #160608",
-},
-    introBox: {
-  maxWidth: "760px",
-  margin: "10px auto 0",
-  border: "5px solid #160608",
-  background: "#f7cfd4",
-  padding: "22px 24px",
-  boxShadow: "8px 8px 0 #e21b3c",
-  fontSize: "20px",
-  fontWeight: 700,
-  lineHeight: 1.6,
-},
-    buttonRow: {
-      display: "flex",
-      gap: "16px",
-      justifyContent: "center",
-      flexWrap: "wrap",
-      marginTop: "32px",
-    },
-    buttonDark: {
-      display: "inline-block",
-      border: "4px solid #160608",
-      background: "#160608",
-      color: "#f7cfd4",
-      padding: "14px 24px",
-      fontSize: "14px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.2em",
-      textDecoration: "none",
-      boxShadow: "5px 5px 0 #e21b3c",
-    },
-    buttonLight: {
-      display: "inline-block",
-      border: "4px solid #160608",
-      background: "#f7cfd4",
-      color: "#160608",
-      padding: "14px 24px",
-      fontSize: "14px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.2em",
-      textDecoration: "none",
-      boxShadow: "5px 5px 0 #160608",
-    },
-    headingWrap: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "18px",
-    },
-    headingFlourish: {
-      width: "78px",
-      height: "24px",
-      flex: "0 0 auto",
-    },
-    heading: {
-      margin: 0,
-      textAlign: "center",
-      fontSize: "52px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.18em",
-      textShadow: "2px 2px 0 #ffffff, 5px 5px 0 #160608",
-    },
-    grid3: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-      gap: "24px",
-      marginTop: "40px",
-    },
-    serviceCard: {
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      padding: "24px",
-      textAlign: "center",
-      boxShadow: "7px 7px 0 #e21b3c",
-    },
-    cardTitle: {
-      margin: 0,
-      fontSize: "14px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.2em",
-    },
-    aboutGrid: {
-      display: "grid",
-      gridTemplateColumns: "1fr",
-      gap: "24px",
-      marginTop: "40px",
-    },
-    aboutInlineWrap: {
-      float: "right",
-      width: "180px",
-      marginLeft: "20px",
-      marginBottom: "10px",
-      border: "4px solid #160608",
-      background: "#f7cfd4",
-      padding: "6px",
-      boxShadow: "5px 5px 0 #e21b3c",
-    },
-    aboutImage: {
-      width: "100%",
-      height: "220px",
-      objectFit: "cover",
-      display: "block",
-      border: "3px solid #160608",
-    },
-    aboutCard: {
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      padding: "28px",
-      boxShadow: "8px 8px 0 #160608",
-    },
-    aboutAccent: {
-      border: "5px solid #160608",
-      background: "#e21b3c",
-      color: "#fff5f6",
-      padding: "28px",
-      boxShadow: "8px 8px 0 #160608",
-    },
-    subheading: {
-      margin: 0,
-      fontSize: "36px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      letterSpacing: "0.15em",
-    },
-    body: {
-      marginTop: "20px",
-      marginBottom: 0,
-      fontSize: "20px",
-      lineHeight: 1.8,
-    },
-    galleryWrap: {
-      overflow: "hidden",
-      marginTop: "40px",
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      boxShadow: "8px 8px 0 #e21b3c",
-      padding: "20px",
-    },
-    galleryTrack: {
-      display: "flex",
-      gap: "20px",
-      width: "max-content",
-    },
-    
-    card: {
-      width: "300px",
-      flex: "0 0 auto",
-      border: "4px solid #160608",
-      background: "#f7cfd4",
-      padding: "12px",
-      boxShadow: "6px 6px 0 #e21b3c",
-      boxSizing: "border-box",
-    },
-    img: {
-      width: "100%",
-      height: "220px",
-      objectFit: "cover",
-      border: "4px solid #160608",
-      display: "block",
-      boxSizing: "border-box",
-    },
-    text: {
-      marginTop: "10px",
-      fontWeight: 900,
-      textTransform: "uppercase",
-      fontSize: "18px",
-    },
-    sectionIntro: {
-      maxWidth: "920px",
-      margin: "20px auto 0",
-      textAlign: "center",
-      fontSize: "18px",
-      lineHeight: 1.7,
-    },
-    logosGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(6, 1fr)",
-      gap: "20px",
-      marginTop: "40px",
-      alignItems: "center",
-    },
-    logoItem: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "14px",
-      background: "#f7cfd4",
-      border: "3px solid #160608",
-      boxShadow: "5px 5px 0 #e21b3c",
-    },
-    logoImg: {
-      maxWidth: "100%",
-      maxHeight: "60px",
-      objectFit: "contain",
-      filter: "grayscale(100%)",
-      opacity: 0.85,
-    },
-    ornamentLeft: {
-      position: "absolute",
-      left: "16px",
-      top: "140px",
-      width: "120px",
-      height: "78%",
-      opacity: 1,
-      zIndex: 3,
-      pointerEvents: "none",
-    },
-    ornamentRight: {
-      position: "absolute",
-      right: "16px",
-      top: "140px",
-      width: "120px",
-      height: "78%",
-      opacity: 1,
-      zIndex: 3,
-      pointerEvents: "none",
-      transform: "scaleX(-1)",
-    },
-    contact: {
-      padding: "48px 100px",
-      textAlign: "center",
-      position: "relative",
-      zIndex: 4,
-    },
-    contactText: {
-      maxWidth: "760px",
-      margin: "20px auto 0",
-      fontSize: "20px",
-      lineHeight: 1.8,
-    },
-    contactGridWrap: {
-      marginTop: "40px",
-    },
-    contactGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      gap: "24px",
-      marginTop: 0,
-      alignItems: "stretch",
-    },
-    contactCard: {
-      border: "5px solid #160608",
-      background: "#f7cfd4",
-      padding: "20px 16px",
-      boxShadow: "7px 7px 0 #e21b3c",
-      minHeight: "auto",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
-      textDecoration: "none",
-      color: "inherit",
-    },
-    value: {
-      margin: 0,
-      fontSize: "20px",
-      lineHeight: 1.35,
-      fontWeight: 900,
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    },
-  };
+  const [visible, setVisible] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
 
-  const headingBlock = (title) => (
-    <div style={styles.headingWrap}>
-      <svg className="heading-flourish" viewBox="0 0 90 24" style={styles.headingFlourish} fill="none">
-        <path d="M4 12 H86" stroke="#160608" strokeWidth="4" strokeLinecap="round" />
-        <circle cx="45" cy="12" r="6" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="3" />
-        <path d="M20 12 C12 6, 12 18, 20 12 Z" fill="#160608" />
-        <path d="M70 12 C78 6, 78 18, 70 12 Z" fill="#160608" />
-      </svg>
-      <h2 className="poster-heading" style={styles.heading}>{title}</h2>
-      <svg className="heading-flourish" viewBox="0 0 90 24" style={styles.headingFlourish} fill="none">
-        <path d="M4 12 H86" stroke="#160608" strokeWidth="4" strokeLinecap="round" />
-        <circle cx="45" cy="12" r="6" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="3" />
-        <path d="M20 12 C12 6, 12 18, 20 12 Z" fill="#160608" />
-        <path d="M70 12 C78 6, 78 18, 70 12 Z" fill="#160608" />
-      </svg>
-    </div>
-  );
+  // Respect visitors who prefer reduced motion.
+  useEffect(() => {
+    const preference = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    const updatePreference = () => {
+      setReducedMotion(preference.matches);
+    };
+
+    updatePreference();
+    preference.addEventListener("change", updatePreference);
+
+    return () => {
+      preference.removeEventListener("change", updatePreference);
+    };
+  }, []);
+
+  // Watch for the gallery entering the screen.
+  useEffect(() => {
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(gallery);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Wait three seconds before the first automatic movement.
+  // Leaving the section before the timer finishes resets the delay.
+  useEffect(() => {
+    if (!visible || started) return;
+
+    const timer = window.setTimeout(() => {
+      setStarted(true);
+    }, START_DELAY_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [visible, started]);
+
+  // Slowly scroll the gallery and loop through the duplicated cards.
+  useEffect(() => {
+    if (
+      !started ||
+      !visible ||
+      paused ||
+      hovered ||
+      focused ||
+      reducedMotion
+    ) {
+      return;
+    }
+
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+
+    let frame;
+    let previousTime;
+    let position = gallery.scrollLeft;
+
+    const animate = (time) => {
+      if (previousTime !== undefined) {
+        const elapsed = Math.min(time - previousTime, 50);
+        const group = gallery.querySelector(".gallery-group");
+        const groupWidth = group?.getBoundingClientRect().width || 0;
+
+        position += (PIXELS_PER_SECOND * elapsed) / 1000;
+
+        if (groupWidth && position >= groupWidth) {
+          position -= groupWidth;
+        }
+
+        gallery.scrollLeft = position;
+      }
+
+      previousTime = time;
+      frame = window.requestAnimationFrame(animate);
+    };
+
+    frame = window.requestAnimationFrame(animate);
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [started, visible, paused, hovered, focused, reducedMotion]);
+
   return (
-    <div style={styles.page}>
-      <a href="#main-content" style={styles.skipLink}>Skip to content</a>
+    <main id="madprops-site">
+      <div className="poster">
+        {/* HERO — no top buttons */}
+        <header className="hero">
+          <h1 className="sr-only">
+            Mad Props Event Co — Custom Event Props and Scenic
+            Fabrication in Dallas
+          </h1>
 
-      <div style={{
-        position: "absolute",
-        width: "1px",
-        height: "1px",
-        overflow: "hidden"
-      }}>
-        <a href="/event-photo-backdrop-dallas">Event Photo Backdrops in Dallas</a>
-        <a href="/custom-event-props-dallas">Custom Event Props in Dallas</a>
-        <a href="/scenic-fabrication-dallas">Scenic Fabrication in Dallas</a>
-      </div>
+          <img
+            className="circus-art"
+            src="/madprops-circus.png"
+            alt="Mad Props Event Co — Welcome to the Greatest Show"
+            fetchPriority="high"
+          />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <style>{`
-        @keyframes scrollGallery {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-
-        .moving-gallery-track {
-          animation: scrollGallery 90s linear infinite;
-          animation-play-state: paused;
-          will-change: transform;
-        }
-
-        .moving-gallery-track.is-running {
-          animation-play-state: running;
-        }
-
-        .moving-gallery-track.is-running:hover {
-          animation-play-state: paused;
-        }
-
-        .skip-link:focus,
-        a[href="#main-content"]:focus {
-          position: absolute !important;
-          left: 16px !important;
-          top: 16px !important;
-          width: auto !important;
-          height: auto !important;
-          overflow: visible !important;
-          background: #160608;
-          color: #fff5f6;
-          padding: 12px 16px;
-          z-index: 9999;
-        }
-
-        @media (max-width: 900px) {
-          .services-grid,
-          .about-grid,
-          .contact-grid,
-          .logos-grid {
-            grid-template-columns: 1fr !important;
-          }
-
-          .side-ornament,
-          .top-ornament,
-          .heading-flourish {
-            display: none !important;
-          }
-
-          .poster-main {
-            box-shadow: 10px 10px 0 #e21b3c !important;
-          }
-        }
-
-        @media (max-width: 700px) {
-          .poster-main {
-            border-width: 7px !important;
-          }
-
-          .poster-border,
-          .poster-border-inner {
-            display: none !important;
-          }
-
-          .poster-section,
-          .poster-hero,
-          .poster-contact {
-            padding-left: 18px !important;
-            padding-right: 18px !important;
-          }
-
-          .poster-heading {
-            font-size: 34px !important;
-            letter-spacing: 0.1em !important;
-            line-height: 1.05 !important;
-          }
-
-          .poster-intro {
-            font-size: 17px !important;
-            line-height: 1.55 !important;
-            padding: 18px 16px !important;
-          }
-
-          .poster-contact-text {
-            font-size: 17px !important;
-            line-height: 1.55 !important;
-          }
-
-          .poster-contact-card {
-            padding: 18px 14px !important;
-          }
-
-          .poster-contact-value {
-            font-size: 16px !important;
-          }
-
-          .poster-about-inline {
-            float: none !important;
-            width: 100% !important;
-            max-width: 220px;
-            margin: 0 auto 16px !important;
-          }
-
-          .poster-logo-wrap {
-            padding: 0 !important;
-          }
-
-          .poster-logo {
-            max-width: 100% !important;
-          }
-
-          .poster-ribbon {
-            font-size: 11px !important;
-            letter-spacing: 0.16em !important;
-            padding: 10px 12px !important;
-          }
-        }
-      `}</style>
-
-      <main className="poster-main" style={styles.main} id="main-content">
-        <div className="poster-border" style={styles.posterBorder} />
-        <div className="poster-border-inner" style={styles.posterBorderInner} />
-
-        <div className="side-ornament" style={styles.ornamentLeft}>
-          <svg viewBox="0 0 140 900" width="100%" height="100%" fill="none" style={{ overflow: "visible" }}>
-            <path d="M70 20 C38 54, 38 100, 70 134 C102 168, 102 214, 70 248 C38 282, 38 328, 70 362 C102 396, 102 442, 70 476 C38 510, 38 556, 70 590 C102 624, 102 670, 70 704 C38 738, 38 784, 70 818" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 80 C18 80, 14 118, 48 146 C18 172, 18 218, 70 226" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 80 C122 80, 126 118, 92 146 C122 172, 122 218, 70 226" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 340 C18 340, 14 378, 48 406 C18 432, 18 478, 70 486" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 340 C122 340, 126 378, 92 406 C122 432, 122 478, 70 486" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 600 C18 600, 14 638, 48 666 C18 692, 18 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 600 C122 600, 126 638, 92 666 C122 692, 122 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <circle cx="70" cy="20" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="248" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="476" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="704" r="12" fill={LIGHT_BLUE} stroke="#160608" strokeWidth="4" />
-            <path d="M70 860 l-20 -28 h40 z" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
-          </svg>
-        </div>
-
-        <div className="side-ornament" style={styles.ornamentRight}>
-          <svg viewBox="0 0 140 900" width="100%" height="100%" fill="none" style={{ overflow: "visible" }}>
-            <path d="M70 20 C38 54, 38 100, 70 134 C102 168, 102 214, 70 248 C38 282, 38 328, 70 362 C102 396, 102 442, 70 476 C38 510, 38 556, 70 590 C102 624, 102 670, 70 704 C38 738, 38 784, 70 818" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 80 C18 80, 14 118, 48 146 C18 172, 18 218, 70 226" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 80 C122 80, 126 118, 92 146 C122 172, 122 218, 70 226" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 340 C18 340, 14 378, 48 406 C18 432, 18 478, 70 486" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 340 C122 340, 126 378, 92 406 C122 432, 122 478, 70 486" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 600 C18 600, 14 638, 48 666 C18 692, 18 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <path d="M70 600 C122 600, 126 638, 92 666 C122 692, 122 738, 70 746" stroke="#160608" strokeWidth="7" strokeLinecap="round" />
-            <circle cx="70" cy="20" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="248" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="476" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
-            <circle cx="70" cy="704" r="12" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
-            <path d="M70 860 l-20 -28 h40 z" fill="#7dd3fc" stroke="#160608" strokeWidth="4" />
-          </svg>
-        </div>
-
-        <header className="poster-hero" style={styles.hero}>
-          <div style={{ ...styles.heroTopBand, marginBottom: "24px" }}>
-            Welcome to the Greatest Show
-          </div>
-
-          <div className="poster-logo-wrap" style={styles.logoWrap}>
-            <div className="top-ornament" style={styles.topOrnamentLeft}>
-              <svg viewBox="0 0 140 220" width="100%" height="100%" fill="none">
-                <path d="M70 18 C40 38, 34 76, 70 102 C106 128, 100 166, 70 194" stroke="#160608" strokeWidth="6" strokeLinecap="round" />
-                <path d="M70 50 C24 50, 18 82, 48 100 C22 116, 22 148, 70 154" stroke="#160608" strokeWidth="6" strokeLinecap="round" />
-                <path d="M70 50 C116 50, 122 82, 92 100 C118 116, 118 148, 70 154" stroke="#160608" strokeWidth="6" strokeLinecap="round" />
-                <circle cx="70" cy="18" r="10" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-                <circle cx="70" cy="102" r="10" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-              </svg>
-            </div>
-
-            <div className="top-ornament" style={styles.topOrnamentRight}>
-              <svg viewBox="0 0 140 220" width="100%" height="100%" fill="none">
-                <path d="M70 18 C40 38, 34 76, 70 102 C106 128, 100 166, 70 194" stroke="#160608" strokeWidth="6" strokeLinecap="round" />
-                <path d="M70 50 C24 50, 18 82, 48 100 C22 116, 22 148, 70 154" stroke="#160608" strokeWidth="6" strokeLinecap="round" />
-                <path d="M70 50 C116 50, 122 82, 92 100 C118 116, 118 148, 70 154" stroke="#160608" strokeWidth="6" strokeLinecap="round" />
-                <circle cx="70" cy="18" r="10" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-                <circle cx="70" cy="102" r="10" fill="#e21b3c" stroke="#160608" strokeWidth="4" />
-              </svg>
-            </div>
-
-            <img
-              className="poster-logo"
-              src="/logo.png"
-              alt="Mad Props Event Co logo"
-              style={styles.logo}
-            />
-          </div>
-
-          <div style={styles.ribbonWrap}>
-            <div className="poster-ribbon" style={styles.ribbon}>
-              Dallas Event Props • Scenic Fabrication • Photo Backdrops
-            </div>
-          </div>
-
-     <h1 style={{
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  padding: 0,
-  margin: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
-  border: 0
-}}>
-  Custom Event Props, Photo Backdrops & Scenic Fabrication in Dallas
-</h1>
-
-          <div className="poster-intro" style={styles.introBox}>
-            Mad Props Event Co creates custom event props, scenic fabrication, photo backdrops, and
-            bold temporary installations for corporate events, festivals, brand activations,
-            private parties, and community events across Dallas-Fort Worth.
-          </div>
-
-          <div style={styles.buttonRow}>
-            <a href="#work" style={styles.buttonDark}>See Work</a>
-            <a href="#contact" style={styles.buttonLight}>Contact Mad Props</a>
-          </div>
+          <p className="intro">
+            Bold, photo-worthy props and temporary installations built
+            for brands, festivals, private events, and public spaces
+            across Dallas–Fort Worth.
+          </p>
         </header>
 
+        {/* SERVICES */}
+        <section
+          className="section cream"
+          aria-label="Custom fabrication services"
+        >
+          <div className="circus-divider" aria-hidden="true">
+            ❧ ━ ★ ━ ❧
+          </div>
 
+          <div className="services">
+            <div className="service">
+              <span className="service-star" aria-hidden="true">
+                ★
+              </span>
+              Custom Event Props
+            </div>
 
-        <section ref={galleryRef} className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
-          {headingBlock("Recent Work")}
-          <p style={styles.sectionIntro}>
-            Recent custom event installations, scenic builds, and photo-worthy props created for
-            public activations, seasonal events, and branded experiences in Dallas and across DFW.
+            <div className="service">
+              <span className="service-star" aria-hidden="true">
+                ✦
+              </span>
+              Scenic Fabrication
+            </div>
+
+            <div className="service">
+              <span className="service-star" aria-hidden="true">
+                ★
+              </span>
+              Photo Backdrops &amp; Branded Installs
+            </div>
+          </div>
+        </section>
+
+        {/* RECENT WORK */}
+        <section
+          className="section work-section"
+          id="work"
+          aria-labelledby="work-heading"
+        >
+          <h2 className="banner work-banner" id="work-heading">
+            Recent Work
+          </h2>
+
+          <p className="section-copy">
+            Recent custom event installations, scenic builds, and
+            photo-worthy props created for public activations, seasonal
+            events, and branded experiences in Dallas and across DFW.
           </p>
-          <div style={styles.galleryWrap}>
-            <div
-              className={`moving-gallery-track${galleryStarted ? " is-running" : ""}`}
-              style={styles.galleryTrack}
-            >
-              {[...projects, ...projects].map((p, i) => (
-                <figure key={i} style={styles.card}>
-                  <img src={p.image} alt={p.alt} style={styles.img} loading="lazy" />
-                  <figcaption style={styles.text}>{p.title}</figcaption>
-                </figure>
+
+          {!reducedMotion && (
+            <div className="gallery-controls">
+              <button
+                type="button"
+                onClick={() => setPaused((current) => !current)}
+                aria-pressed={paused}
+                aria-controls="project-gallery"
+              >
+                {paused ? "Resume gallery" : "Pause gallery"}
+              </button>
+            </div>
+          )}
+
+          <div
+            id="project-gallery"
+            className="gallery-shell"
+            ref={galleryRef}
+            tabIndex={0}
+            role="region"
+            aria-label="Recent projects. Scroll horizontally to browse."
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            onFocus={() => setFocused(true)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                setFocused(false);
+              }
+            }}
+            onTouchStart={() => setPaused(true)}
+          >
+            <div className="gallery-track">
+              {[0, 1].map((copy) => (
+                <div
+                  className="gallery-group"
+                  key={copy}
+                  aria-hidden={copy === 1 ? true : undefined}
+                >
+                  {projects.map((project) => (
+                    <figure className="project-card" key={project.image}>
+                      <img
+                        src={project.image}
+                        alt={copy === 0 ? project.alt : ""}
+                        loading="lazy"
+                        width="600"
+                        height="450"
+                      />
+
+                      <figcaption>{project.title}</figcaption>
+                    </figure>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="poster-section" style={styles.section} id="about" aria-labelledby="about-heading">
-          {headingBlock("About")}
-          <div className="about-grid" style={styles.aboutGrid}>
-            <div style={styles.aboutCard}>
-              <h3 style={styles.subheading}>The Ring Leader</h3>
-              <div className="poster-about-inline" style={styles.aboutInlineWrap}>
-                <img
-                  src="/me.jpg"
-                  alt="Madison Mask, founder of Mad Props Event Co in Dallas"
-                  style={styles.aboutImage}
-                  loading="lazy"
-                />
+        {/* ABOUT */}
+        <section
+          className="section cream"
+          id="about"
+          aria-labelledby="about-heading"
+        >
+          <div className="circus-divider" aria-hidden="true">
+            ❧ ━ ★ ━ ❧
+          </div>
+
+          <h2 className="banner" id="about-heading">
+            About
+          </h2>
+
+          <div className="bio-layout">
+            <div className="portrait">
+              <img
+                src="/me.jpg"
+                alt="Madison Mask, founder and fabricator at Mad Props Event Co"
+                loading="lazy"
+                width="460"
+                height="560"
+              />
+
+              <div className="portrait-caption">
+                Madison Mask
+                <small>Founder &amp; Fabricator</small>
               </div>
-              <p style={styles.body}>
-                Mad Props Event Co is led by Madison Mask, a Dallas-based art producer and fabricator
-                focused on creating bold, playful, and highly shareable event builds.
-              </p>
-              <p style={styles.body}>
-                With a background in event production and hands-on fabrication, Madison bridges concept
-                and execution to create custom event props, scenic fabrication, and large-scale
-                installations that people actually interact with.
-              </p>
-              <p style={styles.body}>
-                Based in Dallas and serving the greater DFW area, the work blends scrappy creativity
-                with real fabrication know-how, so ideas do not just look good online — they get built
-                for real events, real spaces, and real audiences.
-              </p>
             </div>
 
-            <div style={styles.aboutAccent}>
-              <h3 style={styles.subheading}>What Sets It Apart</h3>
-              <p style={styles.body}>
-                Fast-turn builds, creative problem solving, and a strong focus on photo moments,
-                brand visibility, and scenic pieces that make events feel custom.
+            <div className="bio">
+              <h3>The Ring Leader</h3>
+
+              <p>
+                Mad Props Event Co is led by Madison Mask, a Dallas-based
+                art producer and fabricator focused on creating bold,
+                playful, and highly shareable event builds.
               </p>
-              <p style={styles.body}>
-                From private parties and HOA events to downtown activations and branded installs,
-                every build is designed to feel intentional, interactive, and memorable.
+
+              <p>
+                With a background in event production and hands-on
+                fabrication, Madison bridges concept and execution to
+                create custom event props, scenic fabrication, and
+                large-scale installations that people actually interact
+                with.
+              </p>
+
+              <p>
+                Based in Dallas and serving the greater DFW area, the
+                work blends scrappy creativity with real fabrication
+                know-how, so ideas do not just look good online — they
+                get built for real events, real spaces, and real
+                audiences.
               </p>
             </div>
           </div>
+
+          <div className="difference">
+            <h3>★ What Sets It Apart</h3>
+
+            <p>
+              Fast-turn builds, creative problem solving, and a strong
+              focus on photo moments, brand visibility, and scenic
+              pieces that make events feel custom.
+            </p>
+
+            <p>
+              From private parties and HOA events to downtown activations
+              and branded installs, every build is designed to feel
+              intentional, interactive, and memorable.
+            </p>
+          </div>
         </section>
 
-        <section className="poster-section" style={styles.section} aria-labelledby="clients-heading">
-          {headingBlock("Clients & Collaborators")}
-          <p style={styles.sectionIntro}>
-            Mad Props Event Co works with organizations, event teams, and creative collaborators on
-            custom fabrication, scenic builds, and event photo backdrops across Dallas-Fort Worth.
+        {/* CLIENTS */}
+        <section
+          className="section"
+          id="clients"
+          aria-labelledby="clients-heading"
+        >
+          <div className="circus-divider" aria-hidden="true">
+            ❧ ━ ★ ━ ❧
+          </div>
+
+          <h2 className="banner" id="clients-heading">
+            Clients &amp; Collaborators
+          </h2>
+
+          <p className="section-copy">
+            Mad Props Event Co works with organizations, event teams,
+            and creative collaborators on custom fabrication, scenic
+            builds, and event photo backdrops across Dallas–Fort Worth.
           </p>
-          <div className="logos-grid" style={styles.logosGrid}>
-            {logos.map((logo) => (
-              <div key={logo.name} style={styles.logoItem}>
+
+          <div className="client-grid">
+            {clientLogos.map((logo, index) => (
+              <div className="client-slot" key={logo}>
                 <img
-                  src={logo.src}
-                  alt={`${logo.name} collaborator logo`}
-                  style={styles.logoImg}
+                  src={logo}
+                  alt={`Client or collaborator logo ${index + 1}`}
                   loading="lazy"
+                  width="200"
+                  height="100"
                 />
               </div>
             ))}
           </div>
         </section>
 
-        <section className="poster-contact" style={styles.contact} id="contact" aria-labelledby="contact-heading">
-          {headingBlock("Step Right Up")}
-          <p className="poster-contact-text" style={styles.contactText}>
-            Looking for custom event props in Dallas, a photo backdrop for an activation, or scenic
-            fabrication for a festival, corporate event, HOA event, or private party? Let’s build it.
+        {/* CONTACT */}
+        <section
+          className="closing"
+          id="contact"
+          aria-labelledby="contact-heading"
+        >
+          <div className="circus-divider" aria-hidden="true">
+            ❧ ━ ★ ━ ❧
+          </div>
+
+          <h2 id="contact-heading">Step Right Up</h2>
+
+          <p className="contact-copy">
+            Looking for custom event props in Dallas, a photo backdrop
+            for an activation, or scenic fabrication for a festival,
+            corporate event, HOA event, or private party? Let’s build it.
           </p>
 
-          <div style={styles.contactGridWrap}>
-            <div className="contact-grid" style={styles.contactGrid}>
-              <a
-                href="mailto:madison@madpropsevent.co"
-                className="poster-contact-card"
-                style={styles.contactCard}
-                aria-label="Email Mad Props Event Co"
-              >
-                <div>
-                  <div style={{ fontSize: "12px", fontWeight: 900, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "6px" }}>
-                    Email
-                  </div>
-                  <span className="poster-contact-value" style={styles.value}>
-                    madison@madpropsevent.co
-                  </span>
-                </div>
-              </a>
+          <div className="contact-links">
+            <a href="mailto:madison@madpropsevent.co">
+              <small>Email</small>
+              <span>madison@madpropsevent.co ↗</span>
+            </a>
 
-              <a
-                href="https://instagram.com/madpropseventco"
-                target="_blank"
-                rel="noreferrer"
-                className="poster-contact-card"
-                style={styles.contactCard}
-                aria-label="Visit Mad Props Event Co on Instagram"
-              >
-                <div>
-                  <div style={{ fontSize: "12px", fontWeight: 900, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "6px" }}>
-                    Instagram
-                  </div>
-                  <span className="poster-contact-value" style={styles.value}>
-                    @madpropseventco
-                  </span>
-                </div>
-              </a>
-            </div>
+            <a
+              href="https://instagram.com/madpropseventco"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <small>Instagram</small>
+              <span>@madpropseventco ↗</span>
+            </a>
           </div>
         </section>
-      </main>
-    </div>
 
+        <footer className="footer-line">
+          MAD PROPS EVENT CO · DALLAS–FORT WORTH
+          <br />
+          Big ideas. Built for real life.
+        </footer>
+      </div>
+
+      <style>{`
+        #madprops-site {
+          --ink: #190708;
+          --red: #e51e3e;
+          --pink: #efa9b1;
+          --pale: #fff3ed;
+          --blue: #7dd3fc;
+
+          width: 100%;
+          max-width: 1360px;
+          margin: 0 auto;
+          padding: 20px;
+          background: var(--pink);
+          color: var(--ink);
+          font-family: Arial, Helvetica, sans-serif;
+          line-height: 1.5;
+          color-scheme: light;
+        }
+
+        #madprops-site *,
+        #madprops-site *::before,
+        #madprops-site *::after {
+          box-sizing: border-box;
+        }
+
+        /* Explicit colors prevent inherited white text. */
+        #madprops-site h1,
+        #madprops-site h2,
+        #madprops-site h3,
+        #madprops-site p,
+        #madprops-site span,
+        #madprops-site small,
+        #madprops-site figcaption,
+        #madprops-site a,
+        #madprops-site a:visited,
+        #madprops-site button,
+        #madprops-site .service,
+        #madprops-site .portrait-caption,
+        #madprops-site .circus-divider,
+        #madprops-site .footer-line {
+          color: var(--ink) !important;
+          text-shadow: none;
+        }
+
+        #madprops-site .poster {
+          position: relative;
+          overflow: hidden;
+          border: 6px solid var(--ink);
+          outline: 5px solid var(--pale);
+          box-shadow:
+            0 0 0 11px var(--ink),
+            17px 19px 0 var(--red);
+          background: var(--pink);
+        }
+
+        #madprops-site .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+
+        #madprops-site .hero {
+          padding: 0 0 38px;
+          border-bottom: 9px solid var(--ink);
+          background: var(--pink);
+          text-align: center;
+        }
+
+        #madprops-site .circus-art {
+          display: block;
+          width: 100%;
+          height: auto;
+          margin: 0;
+        }
+
+        #madprops-site .intro {
+          max-width: 76%;
+          margin: 22px auto 0;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.65;
+        }
+
+        #madprops-site .section {
+          position: relative;
+          padding: 32px 48px 55px;
+          border-bottom: 6px double var(--ink);
+          background: var(--pink);
+        }
+
+        #madprops-site .section.cream {
+          background: #f9d5d7;
+        }
+
+        #madprops-site .circus-divider {
+          margin: 0 0 20px;
+          text-align: center;
+          font-size: 32px;
+          letter-spacing: 0.16em;
+        }
+
+        #madprops-site .banner {
+          width: fit-content;
+          max-width: 100%;
+          margin: 0 auto 34px;
+          padding: 10px 0;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: clamp(24px, 4vw, 40px);
+          font-weight: 900;
+          line-height: 1.2;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          text-align: center;
+          overflow-wrap: anywhere;
+        }
+
+        #madprops-site .section-copy {
+          max-width: 670px;
+          margin: 0 auto 30px;
+          font-size: 16px;
+          line-height: 1.65;
+          text-align: center;
+        }
+
+        #madprops-site .services {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 26px;
+          padding: 0 6px 15px;
+        }
+
+        #madprops-site .service {
+          padding: 24px 17px;
+          border: 5px double var(--ink);
+          background: var(--pale);
+          box-shadow: 7px 8px 0 var(--red);
+          transform: rotate(-3deg);
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 17px;
+          font-weight: 900;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          line-height: 1.4;
+        }
+
+        #madprops-site .service:nth-child(2) {
+          background: var(--blue);
+          transform: translateY(16px) rotate(2deg);
+        }
+
+        #madprops-site .service:nth-child(3) {
+          transform: rotate(-2deg);
+        }
+
+        #madprops-site .service-star {
+          display: block;
+          margin-bottom: 8px;
+          font-size: 25px;
+        }
+
+        #madprops-site .work-banner {
+          padding: 16px 32px;
+          border: 4px solid var(--ink);
+          background: var(--pale);
+          box-shadow: 6px 6px 0 var(--red);
+        }
+
+        #madprops-site .gallery-controls {
+          display: flex;
+          justify-content: flex-end;
+          margin: 0 0 16px;
+        }
+
+        #madprops-site .gallery-controls button {
+          cursor: pointer;
+          padding: 10px 16px;
+          border: 3px solid var(--ink);
+          border-radius: 0;
+          background: var(--pale);
+          box-shadow: 4px 4px 0 var(--red);
+          font: 700 14px Arial, sans-serif;
+        }
+
+        #madprops-site .gallery-shell {
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding: 24px 20px 35px;
+          border: 5px solid var(--ink);
+          background:
+            radial-gradient(
+              circle,
+              rgba(229, 30, 62, 0.55) 2px,
+              transparent 2px
+            ) 0 0 / 20px 20px,
+            var(--ink);
+          box-shadow: 9px 9px 0 var(--red);
+          scroll-behavior: auto;
+          scrollbar-width: thin;
+          scrollbar-color: var(--blue) var(--ink);
+        }
+
+        #madprops-site .gallery-track {
+          display: flex;
+          width: max-content;
+        }
+
+        #madprops-site .gallery-group {
+          display: flex;
+          flex: none;
+          gap: 22px;
+          padding-right: 22px;
+        }
+
+        #madprops-site .project-card {
+          flex: 0 0 300px;
+          width: 300px;
+          margin: 0;
+          padding: 10px;
+          border: 4px solid var(--ink);
+          background: var(--pale);
+          box-shadow: 5px 5px 0 var(--blue);
+        }
+
+        #madprops-site .project-card:nth-child(even) {
+          transform: translateY(8px) rotate(1deg);
+        }
+
+        #madprops-site .project-card img {
+          display: block;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 4 / 3;
+          object-fit: cover;
+          border: 3px solid var(--ink);
+        }
+
+        #madprops-site .project-card figcaption {
+          margin-top: 9px;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 13px;
+          font-weight: 900;
+          line-height: 1.4;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        #madprops-site .bio-layout {
+          display: grid;
+          grid-template-columns: 230px minmax(0, 1fr);
+          gap: 34px;
+          align-items: start;
+        }
+
+        #madprops-site .portrait {
+          padding: 13px;
+          border: 5px solid var(--ink);
+          background: var(--pale);
+          box-shadow: 8px 8px 0 var(--red);
+          transform: rotate(-3deg);
+        }
+
+        #madprops-site .portrait img {
+          display: block;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 23 / 28;
+          object-fit: cover;
+          border: 3px solid var(--ink);
+        }
+
+        #madprops-site .portrait-caption {
+          padding: 16px 0 5px;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 17px;
+          font-weight: 700;
+          text-align: center;
+        }
+
+        #madprops-site .portrait-caption small {
+          display: block;
+          margin-top: 6px;
+          font: 13px Arial, sans-serif;
+        }
+
+        #madprops-site .bio h3 {
+          margin: 0 0 18px;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 32px;
+          font-weight: 700;
+          line-height: 1.2;
+        }
+
+        #madprops-site .bio p,
+        #madprops-site .difference p {
+          margin: 0 0 18px;
+          font-size: 16px;
+          line-height: 1.75;
+        }
+
+        #madprops-site .difference {
+          margin: 40px 0 8px;
+          padding: 28px 32px;
+          border: 6px double var(--red);
+          outline: 4px solid var(--ink);
+          background: var(--pale);
+          box-shadow: 10px 10px 0 var(--red);
+          transform: rotate(-1deg);
+        }
+
+        #madprops-site .difference h3 {
+          margin: 0 0 18px;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 27px;
+          font-weight: 700;
+          line-height: 1.3;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+        }
+
+        #madprops-site .difference p:last-child {
+          margin-bottom: 0;
+        }
+
+        #madprops-site .client-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 22px;
+        }
+
+        #madprops-site .client-slot {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 110px;
+          border: 5px double var(--ink);
+          background: var(--pale);
+          box-shadow: 6px 6px 0 var(--red);
+        }
+
+        #madprops-site .client-slot:nth-child(even) {
+          box-shadow: 6px 6px 0 var(--blue);
+        }
+
+        #madprops-site .client-slot img {
+          display: block;
+          width: 100%;
+          max-width: 200px;
+          height: 100px;
+          padding: 14px;
+          object-fit: contain;
+        }
+
+        #madprops-site .closing {
+          padding: 35px 55px 43px;
+          border-top: 5px solid var(--ink);
+          background: var(--blue);
+          text-align: center;
+        }
+
+        #madprops-site .closing h2 {
+          margin: 5px 0 20px;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: clamp(30px, 5vw, 42px);
+          font-weight: 900;
+          line-height: 1.2;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+
+        #madprops-site .contact-copy {
+          max-width: 680px;
+          margin: 0 auto 25px;
+          font-size: 16px;
+          line-height: 1.7;
+        }
+
+        #madprops-site .contact-links {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 22px;
+        }
+
+        #madprops-site .contact-links a {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 9px;
+          padding: 16px 20px;
+          border: 3px solid var(--ink);
+          background: var(--blue);
+          box-shadow: 6px 6px 0 var(--ink);
+          text-decoration: none;
+          overflow-wrap: anywhere;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+        }
+
+        #madprops-site .contact-links a:hover {
+          background: var(--pale);
+        }
+
+        #madprops-site .contact-links small {
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+        }
+
+        #madprops-site .footer-line {
+          padding: 20px;
+          border-top: 4px solid var(--ink);
+          background: var(--pale);
+          font-size: 12px;
+          line-height: 1.6;
+          text-align: center;
+          letter-spacing: 0.13em;
+        }
+
+        #madprops-site a:focus-visible,
+        #madprops-site button:focus-visible,
+        #madprops-site .gallery-shell:focus-visible {
+          outline: 4px solid var(--ink);
+          outline-offset: 5px;
+        }
+
+        @media (max-width: 720px) {
+          #madprops-site {
+            padding: 12px;
+          }
+
+          #madprops-site .intro {
+            max-width: 88%;
+            font-size: 16px;
+          }
+
+          #madprops-site .section {
+            padding: 30px 20px 45px;
+          }
+
+          #madprops-site .circus-divider {
+            font-size: 25px;
+          }
+
+          #madprops-site .services {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+
+          #madprops-site .service:nth-child(2) {
+            transform: rotate(2deg);
+          }
+
+          #madprops-site .work-banner {
+            padding: 14px 20px;
+          }
+
+          #madprops-site .gallery-shell {
+            padding: 20px 14px 32px;
+          }
+
+          #madprops-site .project-card {
+            width: 240px;
+            flex-basis: 240px;
+          }
+
+          #madprops-site .bio-layout,
+          #madprops-site .contact-links {
+            grid-template-columns: 1fr;
+          }
+
+          #madprops-site .portrait {
+            width: 220px;
+            max-width: 100%;
+            margin: 0 auto 10px;
+          }
+
+          #madprops-site .difference {
+            padding: 23px 20px;
+          }
+
+          #madprops-site .difference h3 {
+            font-size: 23px;
+          }
+
+          #madprops-site .client-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+          }
+
+          #madprops-site .closing {
+            padding: 25px 20px 35px;
+          }
+        }
+      `}</style>
+    </main>
   );
 }
-
 
