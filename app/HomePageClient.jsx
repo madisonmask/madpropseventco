@@ -191,7 +191,7 @@ export default function HomePageClient() {
           className="section cream"
           aria-label="Custom fabrication services"
         >
-          <div className="circus-divider" aria-hidden="true">
+        
             ❧ ━ ★ ━ ❧
           </div>
 
@@ -295,7 +295,7 @@ export default function HomePageClient() {
           id="about"
           aria-labelledby="about-heading"
         >
-          <div className="circus-divider" aria-hidden="true">
+          
             ❧ ━ ★ ━ ❧
           </div>
 
@@ -369,7 +369,7 @@ export default function HomePageClient() {
           id="clients"
           aria-labelledby="clients-heading"
         >
-          <div className="circus-divider" aria-hidden="true">
+      
             ❧ ━ ★ ━ ❧
           </div>
 
@@ -404,7 +404,7 @@ export default function HomePageClient() {
           id="contact"
           aria-labelledby="contact-heading"
         >
-          <div className="circus-divider" aria-hidden="true">
+        
             ❧ ━ ★ ━ ❧
           </div>
 
