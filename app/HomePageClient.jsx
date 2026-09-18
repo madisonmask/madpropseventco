@@ -502,11 +502,14 @@ export default function HomePageClient() {
         }
 
         #madprops-site .circus-art {
-          display: block;
-          width: 100%;
-          height: auto;
-          margin: 0;
-        }
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 55vh;
+  margin: 0 auto;
+  object-fit: contain;
+}
 
         #madprops-site .intro {
           max-width: 76%;
