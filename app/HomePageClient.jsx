@@ -802,6 +802,8 @@ useEffect(() => {
           </div>
         </section>
 
+        <section ref={galleryRef}>
+
         <section className="poster-section" style={styles.section} id="about" aria-labelledby="about-heading">
           {headingBlock("About")}
           <div className="about-grid" style={styles.aboutGrid}>
