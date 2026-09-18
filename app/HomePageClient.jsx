@@ -25,6 +25,11 @@ export default function HomePageClient() {
   image: "/fan-expo-toy-box.jpg",
   alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas"
 },
+    {
+  title: "Bungalow 60 Branded Entry Arch",
+  image: "/archway.jpg",
+  alt: "Custom pink Bungalow 60 event entrance arch with matching planter boxes and tropical greenery"
+},
       {
   title: "America 250 Birthday Cake Photo Op",
   image: "/fourthofjulycake.jpg",
