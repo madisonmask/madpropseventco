@@ -46,7 +46,7 @@ export default function HomePageClient() {
   alt: "Custom public art installation created for Downtown Dallas"
 },
 {
-  title: "Custom CAED Letters",
+  title: "Dallas College Fashion Show",
   image: "/caedletters.jpg",
   alt: "Large custom-built CAED display letters for an event installation"
 },
