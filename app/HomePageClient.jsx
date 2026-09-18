@@ -35,7 +35,7 @@ export default function HomePageClient() {
   image: "/fourthofjulycake.jpg",
   alt: "Giant red, white and blue birthday cake photo opportunity celebrating America’s 250th anniversary"
 },
-    
+   {  
   title: "Texas Silent Disco Installation",
   image: "/silentdiscotexas.jpg",
   alt: "Interactive Texas-shaped silent disco installation with headphones and a spinning record"
