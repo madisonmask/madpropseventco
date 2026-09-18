@@ -181,7 +181,7 @@ export default function HomePageClient() {
 
           <img
             className="circus-art"
-            src="/madprops-circus.png"
+            src="/madprops-circus-hero.webp""
             alt="Mad Props Event Co — Welcome to the Greatest Show"
             fetchPriority="high"
           />
