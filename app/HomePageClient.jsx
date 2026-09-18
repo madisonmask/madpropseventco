@@ -14,7 +14,7 @@ useEffect(() => {
       if (entry.isIntersecting) {
         startTimer = setTimeout(() => {
           setGalleryStarted(true);
-        }, 6000);
+        }, 3000);
 
         observer.disconnect();
       }
