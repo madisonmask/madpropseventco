@@ -35,6 +35,21 @@ export default function HomePageClient() {
   image: "/fourthofjulycake.jpg",
   alt: "Giant red, white and blue birthday cake photo opportunity celebrating America’s 250th anniversary"
 },
+    
+  title: "Texas Silent Disco Installation",
+  image: "/silentdiscotexas.png",
+  alt: "Interactive Texas-shaped silent disco installation with headphones and a spinning record"
+},
+{
+  title: "Downtown Dallas Arts Installation",
+  image: "/downtowndallasarts.png",
+  alt: "Custom public art installation created for Downtown Dallas"
+},
+{
+  title: "Custom CAED Letters",
+  image: "/caedletters.png",
+  alt: "Large custom-built CAED display letters for an event installation"
+},
     {
     title: "Grateful Community Wall",
     image: "/grateful-wall.jpg",
