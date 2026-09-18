@@ -19,10 +19,16 @@ export default function HomePageClient() {
   ];
 
   const projects = [
-  {
+
+    {
   title: "Fan Expo Toy Box",
   image: "/fan-expo-toy-box.jpg",
   alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas"
+},
+      {
+  title: "America 250 Birthday Cake Photo Op",
+  image: "/fourthofjulycake.jpg",
+  alt: "Giant red, white and blue birthday cake photo opportunity celebrating America’s 250th anniversary"
 },
     {
     title: "Grateful Community Wall",
