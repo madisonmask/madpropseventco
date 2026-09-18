@@ -192,9 +192,7 @@ export default function HomePageClient() {
           aria-label="Custom fabrication services"
         >
         
-            ❧ ━ ★ ━ ❧
-          </div>
-
+       
           <div className="services">
             <div className="service">
               <span className="service-star" aria-hidden="true">
