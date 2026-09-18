@@ -398,7 +398,15 @@ export default function HomePageClient() {
       display: "flex",
       gap: "20px",
       width: "max-content",
+      <div
+  className="moving-gallery-track"
+  style={{
+    ...styles.galleryTrack,
+    animationPlayState: galleryStarted ? "running" : "paused",
+  }}
+>
     },
+    
     card: {
       width: "300px",
       flex: "0 0 auto",
