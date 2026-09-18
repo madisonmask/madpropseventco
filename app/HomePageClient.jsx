@@ -553,7 +553,7 @@ export default function HomePageClient() {
         }
 
         .moving-gallery-track {
-          animation: scrollGallery 50s linear infinite;
+          animation: scrollGallery 90s linear infinite;
           will-change: transform;
         }
 
