@@ -37,17 +37,17 @@ export default function HomePageClient() {
 },
     
   title: "Texas Silent Disco Installation",
-  image: "/silentdiscotexas.png",
+  image: "/silentdiscotexas",
   alt: "Interactive Texas-shaped silent disco installation with headphones and a spinning record"
 },
 {
   title: "Downtown Dallas Arts Installation",
-  image: "/downtowndallasarts.png",
+  image: "/downtowndallasarts",
   alt: "Custom public art installation created for Downtown Dallas"
 },
 {
   title: "Custom CAED Letters",
-  image: "/caedletters.png",
+  image: "/caedletters",
   alt: "Large custom-built CAED display letters for an event installation"
 },
     {
