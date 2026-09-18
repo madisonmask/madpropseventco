@@ -1,17 +1,29 @@
 "use client";
 
-<div style={{
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  overflow: "hidden"
-}}>
-  <a href="/event-photo-backdrop-dallas">Event Photo Backdrops in Dallas</a>
-  <a href="/custom-event-props-dallas">Custom Event Props in Dallas</a>
-  <a href="/scenic-fabrication-dallas">Scenic Fabrication in Dallas</a>
-</div>
+import { useEffect, useRef, useState } from "react";
 
 export default function HomePageClient() {
+  const galleryRef = useRef(null);
+  const [galleryStarted, setGalleryStarted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setGalleryStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    if (galleryRef.current) {
+      observer.observe(galleryRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const services = [
     "Custom event props in Dallas",
     "Scenic fabrication for Events",
@@ -37,17 +49,17 @@ export default function HomePageClient() {
 },
    {  
   title: "Texas Silent Disco Installation",
-  image: "/silentdiscotexas.jpg",
+  image: "/silentdiscotexas.png",
   alt: "Interactive Texas-shaped silent disco installation with headphones and a spinning record"
 },
 {
   title: "Downtown Dallas Arts Installation",
-  image: "/downtowndallasarts.jpg",
+  image: "/downtowndallasarts.png",
   alt: "Custom public art installation created for Downtown Dallas"
 },
 {
   title: "Dallas College Fashion Show",
-  image: "/caedletters.jpg",
+  image: "/caedletters.png",
   alt: "Large custom-built CAED display letters for an event installation"
 },
     {
@@ -398,13 +410,6 @@ export default function HomePageClient() {
       display: "flex",
       gap: "20px",
       width: "max-content",
-      <div
-  className="moving-gallery-track"
-  style={{
-    ...styles.galleryTrack,
-    animationPlayState: galleryStarted ? "running" : "paused",
-  }}
->
     },
     
     card: {
@@ -544,29 +549,20 @@ export default function HomePageClient() {
       </svg>
     </div>
   );
-const galleryRef = useRef(null);
-const [galleryStarted, setGalleryStarted] = useState(false);
-
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        setGalleryStarted(true);
-        observer.disconnect();
-      }
-    },
-    { threshold: 0.25 }
-  );
-
-  if (galleryRef.current) {
-    observer.observe(galleryRef.current);
-  }
-
-  return () => observer.disconnect();
-}, []);
   return (
     <div style={styles.page}>
       <a href="#main-content" style={styles.skipLink}>Skip to content</a>
+
+      <div style={{
+        position: "absolute",
+        width: "1px",
+        height: "1px",
+        overflow: "hidden"
+      }}>
+        <a href="/event-photo-backdrop-dallas">Event Photo Backdrops in Dallas</a>
+        <a href="/custom-event-props-dallas">Custom Event Props in Dallas</a>
+        <a href="/scenic-fabrication-dallas">Scenic Fabrication in Dallas</a>
+      </div>
 
       <script
         type="application/ld+json"
@@ -581,10 +577,15 @@ useEffect(() => {
 
         .moving-gallery-track {
           animation: scrollGallery 90s linear infinite;
+          animation-play-state: paused;
           will-change: transform;
         }
 
-        .moving-gallery-track:hover {
+        .moving-gallery-track.is-running {
+          animation-play-state: running;
+        }
+
+        .moving-gallery-track.is-running:hover {
           animation-play-state: paused;
         }
 
@@ -792,14 +793,17 @@ useEffect(() => {
 
 
 
-        <section className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
+        <section ref={galleryRef} className="poster-section" style={styles.section} id="work" aria-labelledby="work-heading">
           {headingBlock("Recent Work")}
           <p style={styles.sectionIntro}>
             Recent custom event installations, scenic builds, and photo-worthy props created for
             public activations, seasonal events, and branded experiences in Dallas and across DFW.
           </p>
           <div style={styles.galleryWrap}>
-            <div className="moving-gallery-track" style={styles.galleryTrack}>
+            <div
+              className={`moving-gallery-track${galleryStarted ? " is-running" : ""}`}
+              style={styles.galleryTrack}
+            >
               {[...projects, ...projects].map((p, i) => (
                 <figure key={i} style={styles.card}>
                   <img src={p.image} alt={p.alt} style={styles.img} loading="lazy" />
@@ -809,8 +813,6 @@ useEffect(() => {
             </div>
           </div>
         </section>
-
-        <section ref={galleryRef}>
 
         <section className="poster-section" style={styles.section} id="about" aria-labelledby="about-heading">
           {headingBlock("About")}
@@ -925,4 +927,5 @@ useEffect(() => {
 
   );
 }
+
 
