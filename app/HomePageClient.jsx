@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
-// Gallery settings
-const START_DELAY_MS = 3000;
-const PIXELS_PER_SECOND = 25; // Lower this for slower movement.
+const HERO_IMAGE = "/madprops-circus-hero.webp";
 
 const projects = [
   {
@@ -70,120 +68,103 @@ const clientLogos = [
 
 export default function HomePageClient() {
   const galleryRef = useRef(null);
+  const dragRef = useRef(null);
+  const [dragging, setDragging] = useState(false);
 
-  const [visible, setVisible] = useState(false);
-  const [started, setStarted] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(true);
-
-  // Respect visitors who prefer reduced motion.
-  useEffect(() => {
-    const preference = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
-
-    const updatePreference = () => {
-      setReducedMotion(preference.matches);
-    };
-
-    updatePreference();
-    preference.addEventListener("change", updatePreference);
-
-    return () => {
-      preference.removeEventListener("change", updatePreference);
-    };
-  }, []);
-
-  // Watch for the gallery entering the screen.
-  useEffect(() => {
-    const gallery = galleryRef.current;
-    if (!gallery) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(entry.isIntersecting);
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(gallery);
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Wait three seconds before the first automatic movement.
-  // Leaving the section before the timer finishes resets the delay.
-  useEffect(() => {
-    if (!visible || started) return;
-
-    const timer = window.setTimeout(() => {
-      setStarted(true);
-    }, START_DELAY_MS);
-
-    return () => window.clearTimeout(timer);
-  }, [visible, started]);
-
-  // Slowly scroll the gallery and loop through the duplicated cards.
-  useEffect(() => {
+  // Mouse dragging. Touchscreens use native swipe scrolling.
+  function startDragging(event) {
     if (
-      !started ||
-      !visible ||
-      paused ||
-      hovered ||
-      focused ||
-      reducedMotion
+      event.pointerType !== "mouse" ||
+      event.button !== 0 ||
+      !event.isPrimary
     ) {
       return;
     }
 
+    const gallery = event.currentTarget;
+    const bounds = gallery.getBoundingClientRect();
+
+    // Leave the native scrollbar available for normal dragging.
+    if (event.clientY - bounds.top >= gallery.clientHeight + gallery.clientTop) {
+      return;
+    }
+
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScroll: gallery.scrollLeft,
+    };
+
+    gallery.setPointerCapture(event.pointerId);
+    setDragging(true);
+    event.preventDefault();
+    gallery.focus({ preventScroll: true });
+  }
+
+  function moveGallery(event) {
+    const drag = dragRef.current;
+
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    event.currentTarget.scrollLeft =
+      drag.startScroll - (event.clientX - drag.startX);
+  }
+
+  function stopDragging(event) {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    dragRef.current = null;
+    setDragging(false);
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function handleGalleryKeys(event) {
     const gallery = galleryRef.current;
     if (!gallery) return;
 
-    let frame;
-    let previousTime;
-    let position = gallery.scrollLeft;
+    const step = gallery.clientWidth * 0.75;
 
-    const animate = (time) => {
-      if (previousTime !== undefined) {
-        const elapsed = Math.min(time - previousTime, 50);
-        const group = gallery.querySelector(".gallery-group");
-        const groupWidth = group?.getBoundingClientRect().width || 0;
-
-        position += (PIXELS_PER_SECOND * elapsed) / 1000;
-
-        if (groupWidth && position >= groupWidth) {
-          position -= groupWidth;
-        }
-
-        gallery.scrollLeft = position;
-      }
-
-      previousTime = time;
-      frame = window.requestAnimationFrame(animate);
-    };
-
-    frame = window.requestAnimationFrame(animate);
-
-    return () => window.cancelAnimationFrame(frame);
-  }, [started, visible, paused, hovered, focused, reducedMotion]);
+    switch (event.key) {
+      case "ArrowRight":
+        event.preventDefault();
+        gallery.scrollLeft += step;
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        gallery.scrollLeft -= step;
+        break;
+      case "Home":
+        event.preventDefault();
+        gallery.scrollLeft = 0;
+        break;
+      case "End":
+        event.preventDefault();
+        gallery.scrollLeft = gallery.scrollWidth;
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <main id="madprops-site">
       <div className="poster">
-        {/* HERO — no top buttons */}
+        {/* HERO */}
         <header className="hero">
           <h1 className="sr-only">
             Mad Props Event Co — Custom Event Props and Scenic
             Fabrication in Dallas
           </h1>
 
-        <img
-  className="circus-art"
-  src="/madprops-circus-hero.webp"
-  alt="Mad Props Event Co — Welcome to the Greatest Show"
-  fetchPriority="high"
+          <img
+            className="circus-art"
+            src={HERO_IMAGE}
+            alt="Mad Props Event Co — Welcome to the Greatest Show"
+            fetchPriority="high"
           />
 
           <p className="intro">
@@ -193,7 +174,39 @@ export default function HomePageClient() {
           </p>
         </header>
 
-       
+        {/* SERVICES */}
+        <section
+          className="section cream"
+          aria-label="Custom fabrication services"
+        >
+          <div className="circus-divider" aria-hidden="true">
+            ❧ ━ ★ ━ ❧
+          </div>
+
+          <div className="services">
+            <div className="service">
+              <span className="service-star" aria-hidden="true">
+                ★
+              </span>
+              Custom Event Props
+            </div>
+
+            <div className="service">
+              <span className="service-star" aria-hidden="true">
+                ✦
+              </span>
+              Scenic Fabrication
+            </div>
+
+            <div className="service">
+              <span className="service-star" aria-hidden="true">
+                ★
+              </span>
+              Photo Backdrops &amp; Branded Installs
+            </div>
+          </div>
+        </section>
+
         {/* RECENT WORK */}
         <section
           className="section work-section"
@@ -210,60 +223,47 @@ export default function HomePageClient() {
             events, and branded experiences in Dallas and across DFW.
           </p>
 
-          {!reducedMotion && (
-            <div className="gallery-controls">
-              <button
-                type="button"
-                onClick={() => setPaused((current) => !current)}
-                aria-pressed={paused}
-                aria-controls="project-gallery"
-              >
-                {paused ? "Resume gallery" : "Pause gallery"}
-              </button>
-            </div>
-          )}
-
           <div
             id="project-gallery"
-            className="gallery-shell"
+            className={`gallery-shell${dragging ? " dragging" : ""}`}
             ref={galleryRef}
             tabIndex={0}
             role="region"
-            aria-label="Recent projects. Scroll horizontally to browse."
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onFocus={() => setFocused(true)}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                setFocused(false);
-              }
+            aria-label="Recent projects"
+            aria-describedby="gallery-help"
+            onPointerDown={startDragging}
+            onPointerMove={moveGallery}
+            onPointerUp={stopDragging}
+            onPointerCancel={stopDragging}
+            onLostPointerCapture={() => {
+              dragRef.current = null;
+              setDragging(false);
             }}
-            onTouchStart={() => setPaused(true)}
+            onKeyDown={handleGalleryKeys}
+            onDragStart={(event) => event.preventDefault()}
           >
             <div className="gallery-track">
-              {[0, 1].map((copy) => (
-                <div
-                  className="gallery-group"
-                  key={copy}
-                  aria-hidden={copy === 1 ? true : undefined}
-                >
-                  {projects.map((project) => (
-                    <figure className="project-card" key={project.image}>
-                      <img
-                        src={project.image}
-                        alt={copy === 0 ? project.alt : ""}
-                        loading="lazy"
-                        width="600"
-                        height="450"
-                      />
+              {projects.map((project) => (
+                <figure className="project-card" key={project.image}>
+                  <img
+                    src={project.image}
+                    alt={project.alt}
+                    loading="lazy"
+                    width="600"
+                    height="450"
+                    draggable={false}
+                  />
 
-                      <figcaption>{project.title}</figcaption>
-                    </figure>
-                  ))}
-                </div>
+                  <figcaption>{project.title}</figcaption>
+                </figure>
               ))}
             </div>
           </div>
+
+          <p className="gallery-help" id="gallery-help">
+            Drag or swipe to explore. Use left and right arrow keys
+            when the gallery is selected.
+          </p>
         </section>
 
         {/* ABOUT */}
@@ -340,7 +340,7 @@ export default function HomePageClient() {
           </div>
         </section>
 
-        {/* CLIENTS */}
+        {/* CLIENTS AND COLLABORATORS */}
         <section
           className="section"
           id="clients"
@@ -424,7 +424,6 @@ export default function HomePageClient() {
           --pink: #efa9b1;
           --pale: #fff3ed;
           --blue: #7dd3fc;
-
           width: 100%;
           max-width: 1360px;
           margin: 0 auto;
@@ -442,7 +441,7 @@ export default function HomePageClient() {
           box-sizing: border-box;
         }
 
-        /* Explicit colors prevent inherited white text. */
+        /* Prevent inherited white text. */
         #madprops-site h1,
         #madprops-site h2,
         #madprops-site h3,
@@ -452,7 +451,6 @@ export default function HomePageClient() {
         #madprops-site figcaption,
         #madprops-site a,
         #madprops-site a:visited,
-        #madprops-site button,
         #madprops-site .service,
         #madprops-site .portrait-caption,
         #madprops-site .circus-divider,
@@ -591,22 +589,7 @@ export default function HomePageClient() {
           box-shadow: 6px 6px 0 var(--red);
         }
 
-        #madprops-site .gallery-controls {
-          display: flex;
-          justify-content: flex-end;
-          margin: 0 0 16px;
-        }
-
-        #madprops-site .gallery-controls button {
-          cursor: pointer;
-          padding: 10px 16px;
-          border: 3px solid var(--ink);
-          border-radius: 0;
-          background: var(--pale);
-          box-shadow: 4px 4px 0 var(--red);
-          font: 700 14px Arial, sans-serif;
-        }
-
+        /* Manual gallery: no timers or animation. */
         #madprops-site .gallery-shell {
           overflow-x: auto;
           overflow-y: hidden;
@@ -620,21 +603,42 @@ export default function HomePageClient() {
             ) 0 0 / 20px 20px,
             var(--ink);
           box-shadow: 9px 9px 0 var(--red);
+          cursor: grab;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: auto;
           scroll-behavior: auto;
+          scroll-snap-type: none;
           scrollbar-width: thin;
           scrollbar-color: var(--blue) var(--ink);
+        }
+
+        #madprops-site .gallery-shell.dragging,
+        #madprops-site .gallery-shell.dragging * {
+          cursor: grabbing;
+        }
+
+        #madprops-site .gallery-shell::-webkit-scrollbar {
+          height: 10px;
+        }
+
+        #madprops-site .gallery-shell::-webkit-scrollbar-track {
+          background: var(--ink);
+        }
+
+        #madprops-site .gallery-shell::-webkit-scrollbar-thumb {
+          background: var(--blue);
+          border: 2px solid var(--ink);
+          border-radius: 8px;
         }
 
         #madprops-site .gallery-track {
           display: flex;
           width: max-content;
-        }
-
-        #madprops-site .gallery-group {
-          display: flex;
-          flex: none;
           gap: 22px;
-          padding-right: 22px;
+          padding-right: 8px;
+          animation: none;
+          transform: none;
         }
 
         #madprops-site .project-card {
@@ -658,6 +662,9 @@ export default function HomePageClient() {
           aspect-ratio: 4 / 3;
           object-fit: cover;
           border: 3px solid var(--ink);
+          pointer-events: none;
+          user-select: none;
+          -webkit-user-drag: none;
         }
 
         #madprops-site .project-card figcaption {
@@ -668,6 +675,13 @@ export default function HomePageClient() {
           line-height: 1.4;
           text-transform: uppercase;
           letter-spacing: 0.05em;
+        }
+
+        #madprops-site .gallery-help {
+          margin: 22px 0 0;
+          font-size: 13px;
+          line-height: 1.5;
+          text-align: center;
         }
 
         #madprops-site .bio-layout {
@@ -843,7 +857,6 @@ export default function HomePageClient() {
         }
 
         #madprops-site a:focus-visible,
-        #madprops-site button:focus-visible,
         #madprops-site .gallery-shell:focus-visible {
           outline: 4px solid var(--ink);
           outline-offset: 5px;
@@ -921,4 +934,3 @@ export default function HomePageClient() {
     </main>
   );
 }
-
