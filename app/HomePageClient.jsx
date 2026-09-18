@@ -536,7 +536,26 @@ export default function HomePageClient() {
       </svg>
     </div>
   );
+const galleryRef = useRef(null);
+const [galleryStarted, setGalleryStarted] = useState(false);
 
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setGalleryStarted(true);
+        observer.disconnect();
+      }
+    },
+    { threshold: 0.25 }
+  );
+
+  if (galleryRef.current) {
+    observer.observe(galleryRef.current);
+  }
+
+  return () => observer.disconnect();
+}, []);
   return (
     <div style={styles.page}>
       <a href="#main-content" style={styles.skipLink}>Skip to content</a>
