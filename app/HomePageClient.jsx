@@ -11,11 +11,6 @@ const projects = [
     alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas",
   },
   {
-  title: "Downtown Dallas Flower Box Installation",
-  image: "/flowerbox.png",
-  alt: "Bright green planter boxes with oversized colorful flowers and red Pegasus accents outside a downtown Dallas building",
-},
-  {
     title: "Bungalow 60 Branded Entry Arch",
     image: "/archway.jpg",
     alt: "Custom pink Bungalow 60 entrance arch with matching planter boxes",
@@ -24,6 +19,11 @@ const projects = [
     title: "America 250 Birthday Cake",
     image: "/fourthofjulycake.jpg",
     alt: "Giant red, white and blue birthday cake celebrating America's 250th anniversary",
+  },
+  {
+    title: "Downtown Dallas Flower Box Installation",
+    image: "/flowerbox.png",
+    alt: "Bright green planter boxes with oversized colorful flowers and red Pegasus accents outside a downtown Dallas building",
   },
   {
     title: "Texas Silent Disco Installation",
@@ -76,7 +76,7 @@ export default function HomePageClient() {
   const dragRef = useRef(null);
   const [dragging, setDragging] = useState(false);
 
-  // Mouse dragging. Touchscreens use native swipe scrolling.
+  // Mouse dragging. Phones and tablets use native swipe scrolling.
   function startDragging(event) {
     if (
       event.pointerType !== "mouse" ||
@@ -89,8 +89,11 @@ export default function HomePageClient() {
     const gallery = event.currentTarget;
     const bounds = gallery.getBoundingClientRect();
 
-    // Leave the native scrollbar available for normal dragging.
-    if (event.clientY - bounds.top >= gallery.clientHeight + gallery.clientTop) {
+    // Keep the native scrollbar available.
+    if (
+      event.clientY - bounds.top >=
+      gallery.clientHeight + gallery.clientTop
+    ) {
       return;
     }
 
@@ -117,6 +120,7 @@ export default function HomePageClient() {
 
   function stopDragging(event) {
     const drag = dragRef.current;
+
     if (!drag || drag.pointerId !== event.pointerId) return;
 
     dragRef.current = null;
@@ -129,6 +133,7 @@ export default function HomePageClient() {
 
   function handleGalleryKeys(event) {
     const gallery = galleryRef.current;
+
     if (!gallery) return;
 
     const step = gallery.clientWidth * 0.75;
@@ -158,19 +163,21 @@ export default function HomePageClient() {
   return (
     <main id="madprops-site">
       <div className="poster">
-        {/* HERO */}
+        {/* HEADER */}
         <header className="hero">
           <h1 className="sr-only">
             Mad Props Event Co — Custom Event Props and Scenic
             Fabrication in Dallas
           </h1>
 
-          <img
-            className="circus-art"
-            src={HERO_IMAGE}
-            alt="Mad Props Event Co — Welcome to the Greatest Show"
-            fetchPriority="high"
-          />
+          <div className="circus-header">
+            <img
+              className="circus-art"
+              src={HERO_IMAGE}
+              alt="Mad Props Event Co — Welcome to the Greatest Show"
+              fetchPriority="high"
+            />
+          </div>
 
           <p className="intro">
             Bold, photo-worthy props and temporary installations built
@@ -214,7 +221,7 @@ export default function HomePageClient() {
 
         {/* RECENT WORK */}
         <section
-          className="section work-section"
+          className="section"
           id="work"
           aria-labelledby="work-heading"
         >
@@ -227,22 +234,24 @@ export default function HomePageClient() {
             photo-worthy props created for public activations, seasonal
             events, and branded experiences in Dallas and across DFW.
           </p>
-<div className="gallery-help" id="gallery-help">
-  <span className="gallery-help-title">
-    MORE TO SEE — EXPLORE THE GALLERY
-  </span>
 
-  <span className="gallery-help-directions">
-    <span aria-hidden="true">←</span>
-    Click and hold, then drag left or right
-    <span aria-hidden="true">→</span>
-  </span>
+          <div className="gallery-help" id="gallery-help">
+            <span className="gallery-help-title">
+              MORE TO SEE — EXPLORE THE GALLERY
+            </span>
 
-  <small>
-    On your phone? Swipe through the photos.
-    Keyboard: select the gallery and use ← →.
-  </small>
-</div>
+            <span className="gallery-help-directions">
+              <span aria-hidden="true">←</span>
+              Click and hold, then drag left or right
+              <span aria-hidden="true">→</span>
+            </span>
+
+            <small>
+              On your phone? Swipe through the photos. Keyboard: select
+              the gallery and use ← →.
+            </small>
+          </div>
+
           <div
             id="project-gallery"
             className={`gallery-shell${dragging ? " dragging" : ""}`}
@@ -273,14 +282,11 @@ export default function HomePageClient() {
                     height="450"
                     draggable={false}
                   />
-
                   <figcaption>{project.title}</figcaption>
                 </figure>
               ))}
             </div>
           </div>
-
-       
         </section>
 
         {/* ABOUT */}
@@ -357,7 +363,7 @@ export default function HomePageClient() {
           </div>
         </section>
 
-        {/* CLIENTS AND COLLABORATORS */}
+        {/* CLIENTS */}
         <section
           className="section"
           id="clients"
@@ -458,7 +464,6 @@ export default function HomePageClient() {
           box-sizing: border-box;
         }
 
-        /* Prevent inherited white text. */
         #madprops-site h1,
         #madprops-site h2,
         #madprops-site h3,
@@ -499,6 +504,7 @@ export default function HomePageClient() {
           border: 0;
         }
 
+        /* Shorter header with decorative circus side panels. */
         #madprops-site .hero {
           padding: 0 0 38px;
           border-bottom: 9px solid var(--ink);
@@ -506,15 +512,58 @@ export default function HomePageClient() {
           text-align: center;
         }
 
+        #madprops-site .circus-header {
+          position: relative;
+          isolation: isolate;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          overflow: hidden;
+          border-bottom: 6px solid var(--ink);
+          background: var(--pink);
+        }
+
+        #madprops-site .circus-header::before,
+        #madprops-site .circus-header::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          pointer-events: none;
+          background: repeating-conic-gradient(
+            from -12deg at 0% 50%,
+            var(--ink) 0deg 12deg,
+            var(--red) 12deg 24deg,
+            var(--pink) 24deg 36deg
+          );
+        }
+
+        #madprops-site .circus-header::before {
+          right: 50%;
+        }
+
+        #madprops-site .circus-header::after {
+          left: 50%;
+          transform: scaleX(-1);
+        }
+
         #madprops-site .circus-art {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 55vh;
-  margin: 0 auto;
-  object-fit: contain;
-}
+          position: relative;
+          display: block;
+          flex: 0 1 auto;
+          min-width: 0;
+          width: auto;
+          max-width: 100%;
+          height: auto;
+          max-height: 55vh;
+          margin: 0;
+          object-fit: contain;
+          background: var(--pink);
+          box-shadow:
+            -5px 0 0 var(--ink),
+            5px 0 0 var(--ink);
+        }
 
         #madprops-site .intro {
           max-width: 76%;
@@ -609,7 +658,51 @@ export default function HomePageClient() {
           box-shadow: 6px 6px 0 var(--red);
         }
 
-        /* Manual gallery: no timers or animation. */
+        /* Gallery instructions */
+        #madprops-site .gallery-help {
+          margin: 0 0 28px;
+          padding: 18px 22px;
+          border: 4px solid var(--ink);
+          background: var(--blue);
+          box-shadow: 6px 6px 0 var(--ink);
+          color: var(--ink);
+          text-align: center;
+        }
+
+        #madprops-site .gallery-help-title {
+          display: block;
+          margin-bottom: 10px;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: clamp(18px, 2.5vw, 25px);
+          font-weight: 900;
+          line-height: 1.3;
+          letter-spacing: 0.04em;
+        }
+
+        #madprops-site .gallery-help-directions {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          font-size: clamp(16px, 2vw, 21px);
+          font-weight: 700;
+          line-height: 1.4;
+        }
+
+        #madprops-site .gallery-help-directions > span {
+          flex-shrink: 0;
+          font-size: 34px;
+          line-height: 1;
+        }
+
+        #madprops-site .gallery-help small {
+          display: block;
+          margin-top: 10px;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+
+        /* Manual gallery — no automatic movement */
         #madprops-site .gallery-shell {
           overflow-x: auto;
           overflow-y: hidden;
@@ -697,49 +790,7 @@ export default function HomePageClient() {
           letter-spacing: 0.05em;
         }
 
-        #madprops-site .gallery-help {
-  margin: 0 0 28px;
-  padding: 18px 22px;
-  border: 4px solid var(--ink);
-  background: var(--blue);
-  box-shadow: 6px 6px 0 var(--ink);
-  color: var(--ink);
-  text-align: center;
-}
-
-#madprops-site .gallery-help-title {
-  display: block;
-  margin-bottom: 10px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(18px, 2.5vw, 25px);
-  font-weight: 900;
-  line-height: 1.3;
-  letter-spacing: 0.04em;
-}
-
-#madprops-site .gallery-help-directions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  font-size: clamp(16px, 2vw, 21px);
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-#madprops-site .gallery-help-directions > span {
-  flex-shrink: 0;
-  font-size: 34px;
-  line-height: 1;
-}
-
-#madprops-site .gallery-help small {
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
+        /* About */
         #madprops-site .bio-layout {
           display: grid;
           grid-template-columns: 230px minmax(0, 1fr);
@@ -817,6 +868,7 @@ export default function HomePageClient() {
           margin-bottom: 0;
         }
 
+        /* Clients */
         #madprops-site .client-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -846,6 +898,7 @@ export default function HomePageClient() {
           object-fit: contain;
         }
 
+        /* Contact */
         #madprops-site .closing {
           padding: 35px 55px 43px;
           border-top: 5px solid var(--ink);
@@ -918,9 +971,16 @@ export default function HomePageClient() {
           outline-offset: 5px;
         }
 
+        /* Mobile */
         @media (max-width: 720px) {
           #madprops-site {
             padding: 12px;
+          }
+
+          #madprops-site .circus-art {
+            width: 100%;
+            max-height: none;
+            box-shadow: none;
           }
 
           #madprops-site .intro {
@@ -947,6 +1007,18 @@ export default function HomePageClient() {
 
           #madprops-site .work-banner {
             padding: 14px 20px;
+          }
+
+          #madprops-site .gallery-help {
+            padding: 16px 12px;
+          }
+
+          #madprops-site .gallery-help-directions {
+            gap: 10px;
+          }
+
+          #madprops-site .gallery-help-directions > span {
+            font-size: 26px;
           }
 
           #madprops-site .gallery-shell {
