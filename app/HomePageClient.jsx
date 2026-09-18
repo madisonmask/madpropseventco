@@ -6,23 +6,31 @@ export default function HomePageClient() {
   const galleryRef = useRef(null);
   const [galleryStarted, setGalleryStarted] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+useEffect(() => {
+  let startTimer;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        startTimer = setTimeout(() => {
           setGalleryStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
+        }, 3000);
 
-    if (galleryRef.current) {
-      observer.observe(galleryRef.current);
-    }
+        observer.disconnect();
+      }
+    },
+    { threshold: 0.25 }
+  );
 
-    return () => observer.disconnect();
-  }, []);
+  if (galleryRef.current) {
+    observer.observe(galleryRef.current);
+  }
+
+  return () => {
+    observer.disconnect();
+    clearTimeout(startTimer);
+  };
+}, []);
 
   const services = [
     "Custom event props in Dallas",
