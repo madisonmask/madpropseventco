@@ -179,11 +179,11 @@ export default function HomePageClient() {
             Fabrication in Dallas
           </h1>
 
-          <img
-            className="circus-art"
-            src="/madprops-circus-hero.webp""
-            alt="Mad Props Event Co — Welcome to the Greatest Show"
-            fetchPriority="high"
+        <img
+  className="circus-art"
+  src="/madprops-circus-hero.webp"
+  alt="Mad Props Event Co — Welcome to the Greatest Show"
+  fetchPriority="high"
           />
 
           <p className="intro">
