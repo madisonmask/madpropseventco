@@ -1,133 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./carnival.css";
+import Script from "next/script";
 
-const projects = [
-  {
-    image: "/fan-expo-toy-box.jpg",
-    title: "Fan Expo Toy Box",
-    alt: "Life-size collectible toy box photo opportunity for Fan Expo Dallas",
-  },
-  {
-    image: "/archway.jpg",
-    title: "Bungalow 60 Branded Entry Arch",
-    alt: "Custom pink Bungalow 60 entrance arch with matching planter boxes",
-  },
-  {
-    image: "/fourthofjulycake.jpg",
-    title: "America 250 Birthday Cake",
-    alt: "Giant red, white and blue birthday cake celebrating America's 250th anniversary",
-  },
-  {
-    image: "/flowerbox.png",
-    title: "Downtown Dallas Flower Box Installation",
-    alt: "Bright green planter boxes with oversized colorful flowers and red Pegasus accents outside a downtown Dallas building",
-  },
-  {
-    image: "/silentdiscotexas.png",
-    title: "Texas Silent Disco Installation",
-    alt: "Texas-shaped silent disco installation with headphones and a record",
-  },
-  {
-    image: "/downtowndallasarts.png",
-    title: "Downtown Dallas Arts Installation",
-    alt: "Custom public art installation created for Downtown Dallas",
-  },
-  {
-    image: "/caedletters.png",
-    title: "Dallas College Fashion Show",
-    alt: "Large custom-built CAED display letters",
-  },
-  {
-    image: "/grateful-wall.jpg",
-    title: "Grateful Community Wall",
-    alt: "Interactive community wall and event photo backdrop in Dallas",
-  },
-  {
-    image: "/you-are-here.jpg",
-    title: "You Are Here Marker",
-    alt: "Large public art marker and photo opportunity in Dallas",
-  },
-  {
-    image: "/st-patricks-bench.jpg",
-    title: "St. Patrick's Day Bench",
-    alt: "St. Patrick's Day bench and seasonal event photo opportunity",
-  },
-  {
-    image: "/year-of-the-snake.jpg",
-    title: "Year of the Snake",
-    alt: "Custom Year of the Snake themed event installation",
-  },
-];
 
 export default function MadPropsCarnival() {
-  const galleryRef = useRef(null);
   const pendingRef = useRef(false);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
 
-  useEffect(() => {
-    const gallery = galleryRef.current;
-    if (!gallery) return;
-
-    let down = false;
-    let startX = 0;
-    let startScroll = 0;
-
-    function start(event) {
-      if (event.pointerType !== "mouse" || event.button !== 0) return;
-      down = true;
-      startX = event.clientX;
-      startScroll = gallery.scrollLeft;
-      gallery.setPointerCapture(event.pointerId);
-      gallery.classList.add("dragging");
-    }
-
-    function move(event) {
-      if (down) {
-        gallery.scrollLeft = startScroll - (event.clientX - startX);
-      }
-    }
-
-    function end() {
-      down = false;
-      gallery.classList.remove("dragging");
-    }
-
-    function key(event) {
-      if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
-
-      event.preventDefault();
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      gallery.scrollBy({
-        left:
-          (event.key === "ArrowRight" ? 1 : -1) *
-          gallery.clientWidth *
-          0.75,
-        behavior: reduceMotion ? "auto" : "smooth",
-      });
-    }
-
-    gallery.addEventListener("pointerdown", start);
-    gallery.addEventListener("pointermove", move);
-    gallery.addEventListener("pointerup", end);
-    gallery.addEventListener("pointercancel", end);
-    gallery.addEventListener("lostpointercapture", end);
-    gallery.addEventListener("keydown", key);
-
-    return () => {
-      gallery.removeEventListener("pointerdown", start);
-      gallery.removeEventListener("pointermove", move);
-      gallery.removeEventListener("pointerup", end);
-      gallery.removeEventListener("pointercancel", end);
-      gallery.removeEventListener("lostpointercapture", end);
-      gallery.removeEventListener("keydown", key);
-    };
-  }, []);
 
   async function submitInquiry(event) {
     event.preventDefault();
@@ -173,10 +55,6 @@ export default function MadPropsCarnival() {
   return (
     <main id="madprops-site">
       <div className="poster">
-        <nav className="topbar" aria-label="Main navigation">
-          <a href="#">MAD PROPS EVENT CO</a>
-          <a href="#contact">Step Right Up ↗</a>
-        </nav>
 
         <header className="hero">
           <h1 className="sr-only">
@@ -192,6 +70,8 @@ export default function MadPropsCarnival() {
               fetchPriority="high"
             />
           </div>
+
+          <a className="hero-contact-button" href="#contact">Step Right Up ↗</a>
 
           <p className="intro">
             Bold, photo-worthy props and temporary installations built for
@@ -233,45 +113,22 @@ export default function MadPropsCarnival() {
             experiences in Dallas and across DFW.
           </p>
 
-          <div className="gallery-help" id="gallery-help">
-            <span className="gallery-help-title">
-              MORE TO SEE — EXPLORE THE GALLERY
-            </span>
-            <span className="gallery-help-directions">
-              <span aria-hidden="true">←</span>
-              Click and hold, then drag left or right
-              <span aria-hidden="true">→</span>
-            </span>
-            <small>
-              On your phone? Swipe through the photos. Keyboard: select the
-              gallery and use ← →.
-            </small>
+          <div className="instagram-feed">
+            <blockquote className="instagram-media"
+              data-instgrm-permalink="https://www.instagram.com/madpropseventco/"
+              data-instgrm-version="14">
+              <a href="https://www.instagram.com/madpropseventco/" target="_blank" rel="noopener noreferrer">
+                View @madpropseventco on Instagram ↗
+              </a>
+            </blockquote>
           </div>
-
-          <div
-            ref={galleryRef}
-            className="gallery-shell"
-            tabIndex={0}
-            role="region"
-            aria-label="Recent projects"
-            aria-describedby="gallery-help"
-          >
-            <div className="gallery-track">
-              {projects.map((project) => (
-                <figure className="project-card" key={project.image}>
-                  <img
-                    src={project.image}
-                    alt={project.alt}
-                    loading="lazy"
-                    width={600}
-                    height={450}
-                    draggable={false}
-                  />
-                  <figcaption>{project.title}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
+          <p className="instagram-fallback">
+            <a href="https://www.instagram.com/madpropseventco/" target="_blank" rel="noopener noreferrer">
+              See more on Instagram ↗
+            </a>
+          </p>
+          <Script src="https://www.instagram.com/embed.js" strategy="lazyOnload"
+            onReady={() => window.instgrm?.Embeds?.process()} />
         </section>
 
         <section
@@ -402,21 +259,15 @@ export default function MadPropsCarnival() {
                 />
               </label>
               <label htmlFor="inquiry-date">
-                Event date <span>(optional)</span>
-                <input id="inquiry-date" name="date" type="date" />
+                Event date <span>(required)</span>
+                <input id="inquiry-date" name="date" type="date" required />
               </label>
             </div>
 
             <label htmlFor="inquiry-budget">
-              Estimated budget <span>(optional)</span>
-              <select id="inquiry-budget" name="budget" defaultValue="">
-                <option value="">Select a range</option>
-                <option>Under $2,500</option>
-                <option>$2,500–$5,000</option>
-                <option>$5,000–$10,000</option>
-                <option>$10,000+</option>
-                <option>Not sure yet</option>
-              </select>
+              Estimated budget (USD) <span>(required)</span>
+              <input id="inquiry-budget" name="budget" type="number"
+                min="1" step="1" required placeholder="2500" />
             </label>
 
             <label htmlFor="inquiry-details">
@@ -478,3 +329,4 @@ export default function MadPropsCarnival() {
     </main>
   );
 }
+

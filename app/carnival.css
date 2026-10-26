@@ -762,3 +762,27 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* Hero contact button and native Instagram profile embed. */
+.hero-contact-button {
+  display: table; margin: 30px auto 0; padding: 16px 30px;
+  background: #fff3ed; color: #190708; border: 3px solid #190708;
+  box-shadow: 5px 5px 0 #190708; font: 900 24px Georgia, serif;
+  text-decoration: none; transform: rotate(-1deg);
+}
+.hero-contact-button:hover { background: #ffe3a6; }
+.instagram-feed {
+  width: 100%; max-width: 560px; margin: 36px auto 0; padding: 12px;
+  background: #fff3ed; border: 3px solid #190708; box-shadow: 7px 7px 0 #190708;
+}
+.instagram-feed .instagram-media {
+  width: 100% !important; min-width: 0 !important;
+  max-width: 100% !important; margin: 0 !important;
+}
+.instagram-fallback { text-align: center; margin: 26px 0 0; }
+@media(max-width: 700px) {
+  .instagram-feed { padding: 4px; }
+  #work { padding-left: 3%; padding-right: 3%; }
+  .hero-contact-button { font-size: 21px; }
+}
+
