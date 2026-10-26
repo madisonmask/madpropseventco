@@ -2,31 +2,27 @@ import MadPropsCarnival from "./MadPropsCarnival";
 
 export const metadata = {
   title:
-    "Custom Event Props, Photo Backdrops & Scenic Fabrication in Dallas | Mad Props Event Co",
+    "Custom Scenic & Experiential Fabrication Dallas | Mad Props Event Co",
   description:
-    "Mad Props Event Co designs and builds custom event props, photo backdrops, scenic fabrication, and branded installations in Dallas-Fort Worth for corporate events, festivals, private parties, and community activations.",
+    "Custom props, scenic elements, and branded installations for experiential agencies, brand activations, and trade shows. Based in Dallas–Fort Worth.",
   keywords: [
-    "event props Dallas",
-    "custom event props Dallas",
-    "photo backdrop Dallas",
-    "event photo backdrop Dallas",
-    "photo op installation Dallas",
+    "custom fabrication Dallas",
     "scenic fabrication Dallas",
-    "event installation Dallas",
-    "festival props Dallas",
-    "custom backdrop Dallas",
     "experiential fabrication Dallas",
     "brand activation fabrication Dallas",
-    "DFW event props",
+    "trade show fabrication Dallas",
+    "custom exhibit elements Dallas",
+    "custom props Dallas",
+    "branded installations DFW",
   ],
   alternates: {
     canonical: "https://www.madpropsevent.co/",
   },
   openGraph: {
     title:
-      "Mad Props Event Co | Custom Event Props & Scenic Fabrication in Dallas",
+      "Mad Props Event Co | Custom Fabrication for Brand Experiences",
     description:
-      "Custom props, scenic fabrication, photo backdrops, and bold event installs for brands, festivals, HOAs, and private events in Dallas-Fort Worth.",
+      "Custom props, scenic elements, and branded installations for experiential agencies, brand activations, and trade shows in Dallas–Fort Worth.",
     url: "https://www.madpropsevent.co/",
     siteName: "Mad Props Event Co",
     locale: "en_US",
@@ -36,7 +32,7 @@ export const metadata = {
         url: "https://www.madpropsevent.co/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Mad Props Event Co custom event props and scenic fabrication in Dallas",
+        alt: "Mad Props Event Co custom props and scenic fabrication in Dallas",
       },
     ],
   },
