@@ -1,12 +1,10 @@
-import HomePageClient from "./HomePageClient";
+import MadPropsCarnival from "./MadPropsCarnival";
 
 export const metadata = {
   title:
     "Custom Event Props, Photo Backdrops & Scenic Fabrication in Dallas | Mad Props Event Co",
-
   description:
     "Mad Props Event Co designs and builds custom event props, photo backdrops, scenic fabrication, and branded installations in Dallas-Fort Worth for corporate events, festivals, private parties, and community activations.",
-
   keywords: [
     "event props Dallas",
     "custom event props Dallas",
@@ -21,23 +19,18 @@ export const metadata = {
     "brand activation fabrication Dallas",
     "DFW event props",
   ],
-
   alternates: {
     canonical: "https://www.madpropsevent.co/",
   },
-
   openGraph: {
     title:
       "Mad Props Event Co | Custom Event Props & Scenic Fabrication in Dallas",
-
     description:
       "Custom props, scenic fabrication, photo backdrops, and bold event installs for brands, festivals, HOAs, and private events in Dallas-Fort Worth.",
-
     url: "https://www.madpropsevent.co/",
     siteName: "Mad Props Event Co",
     locale: "en_US",
     type: "website",
-
     images: [
       {
         url: "https://www.madpropsevent.co/og-image.jpg",
@@ -50,5 +43,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <HomePageClient />;
+  return <MadPropsCarnival />;
 }
