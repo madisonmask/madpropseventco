@@ -89,6 +89,14 @@ export async function POST(request) {
     );
   }
 
+  const dateValid = /^\d{4}-\d{2}-\d{2}$/.test(clean.date)
+    && !Number.isNaN(Date.parse(clean.date))
+    && new Date(clean.date).toISOString().slice(0, 10) === clean.date;
+  if (!dateValid) return reply("Enter a valid event date.", 400);
+  if (!/^\d+$/.test(clean.budget) || !Number.isSafeInteger(Number(clean.budget)) || Number(clean.budget) <= 0) {
+    return reply("Enter your budget as a positive whole-dollar amount.", 400);
+  }
+  clean.budget = "$" + Number(clean.budget).toLocaleString("en-US") + " USD";
   if (!process.env.RESEND_API_KEY || !process.env.CONTACT_FROM_EMAIL) {
     return reply(
       "Email delivery is temporarily unavailable. Please email madison@madpropsevent.co.",
@@ -134,3 +142,4 @@ export async function POST(request) {
     );
   }
 }
+
