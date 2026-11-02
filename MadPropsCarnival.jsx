@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import "./carnival.css";
 import Script from "next/script";
+import { recordLeadConversion } from "./lib/lead-conversion.mjs";
 
 
 export default function MadPropsCarnival() {
@@ -32,7 +33,7 @@ export default function MadPropsCarnival() {
 
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
+      if (!response.ok || result.success !== true) {
         throw new Error(
           result.message ||
             "Unable to send. Please try again or email madison@madpropsevent.co."
@@ -41,6 +42,8 @@ export default function MadPropsCarnival() {
 
       setStatus(result.message || "Thanks! Your inquiry has been submitted.");
       form.reset();
+      // A random ID deduplicates this accepted submission without sharing PII.
+      recordLeadConversion();
     } catch (error) {
       setStatus(
         error.message ||

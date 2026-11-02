@@ -2,7 +2,7 @@
 export const runtime = "nodejs";
 
 const reply = (message, status) =>
-  Response.json({ message }, { status });
+  Response.json({ message, success: status === 200 }, { status });
 
 export async function POST(request) {
   const origin = request.headers.get("origin");
